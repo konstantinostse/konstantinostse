@@ -1,0 +1,105 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Source Files\nvmDriver">
+      <UniqueIdentifier>{bd557e36-9855-4ca1-a418-74c7f6c9be34}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\attributeDatabase">
+      <UniqueIdentifier>{ebb20329-b18b-4cae-8a7b-cda2dc858db5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\DBInterface">
+      <UniqueIdentifier>{4f0227d2-2cfd-44ff-8123-c6fada805e7d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Unit_Tests_Source_Files">
+      <UniqueIdentifier>{4c495405-e74b-4d05-8d5a-9c8840b3dfed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Unit_Tests_Source_Files\testFlashReadWrite">
+      <UniqueIdentifier>{8227917c-8b31-453b-b808-3f60af6d3bff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Unit_Tests_Source_Files\testCrcCheck">
+      <UniqueIdentifier>{46312cc3-cfe8-4fab-8eba-7689ed52b87d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Unit_Tests_Source_Files\testBitwise">
+      <UniqueIdentifier>{9769fc10-2526-4182-b45f-8aefa1b81eb3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\crcCheck">
+      <UniqueIdentifier>{e64656cd-feb9-4021-8899-ee524b02e676}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\debugFunctions">
+      <UniqueIdentifier>{5343dffd-fac8-457e-8942-7d8e86869178}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="memory.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="attributeDatabase.cpp">
+      <Filter>Source Files\attributeDatabase</Filter>
+    </ClCompile>
+    <ClCompile Include="DBInterface.cpp">
+      <Filter>Source Files\DBInterface</Filter>
+    </ClCompile>
+    <ClCompile Include="nvmDriver.cpp">
+      <Filter>Source Files\nvmDriver</Filter>
+    </ClCompile>
+    <ClCompile Include="testFlashReadWrite.cpp">
+      <Filter>Unit_Tests_Source_Files\testFlashReadWrite</Filter>
+    </ClCompile>
+    <ClCompile Include="testCrcCheck.cpp">
+      <Filter>Unit_Tests_Source_Files\testCrcCheck</Filter>
+    </ClCompile>
+    <ClCompile Include="testBitwise.cpp">
+      <Filter>Unit_Tests_Source_Files\testBitwise</Filter>
+    </ClCompile>
+    <ClCompile Include="crcCheck.cpp">
+      <Filter>Source Files\crcCheck</Filter>
+    </ClCompile>
+    <ClCompile Include="debugFunctions.cpp">
+      <Filter>Source Files\debugFunctions</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="nvmDriver.h">
+      <Filter>Source Files\nvmDriver</Filter>
+    </ClInclude>
+    <ClInclude Include="attributeDatabase.h">
+      <Filter>Source Files\attributeDatabase</Filter>
+    </ClInclude>
+    <ClInclude Include="DBInterface.h">
+      <Filter>Source Files\DBInterface</Filter>
+    </ClInclude>
+    <ClInclude Include="attributes.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="testFlashReadWrite.h">
+      <Filter>Unit_Tests_Source_Files\testFlashReadWrite</Filter>
+    </ClInclude>
+    <ClInclude Include="testCrcCheck.h">
+      <Filter>Unit_Tests_Source_Files\testCrcCheck</Filter>
+    </ClInclude>
+    <ClInclude Include="testBitwise.h">
+      <Filter>Unit_Tests_Source_Files\testBitwise</Filter>
+    </ClInclude>
+    <ClInclude Include="crcCheck.h">
+      <Filter>Source Files\crcCheck</Filter>
+    </ClInclude>
+    <ClInclude Include="debugFunctions.h">
+      <Filter>Source Files\debugFunctions</Filter>
+    </ClInclude>
+    <ClInclude Include="bitwise.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

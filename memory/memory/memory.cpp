@@ -36,7 +36,19 @@
 *    • Extend the your solution with an unit test.
 */
 
-
+/*
+*      Attribute Database description.
+* The  nvm driver handles  a database  stored  in the non-volatile memory and 
+* a copy of the nvm database stored in Ram (stack) in the heap. Nvm database should be 
+* synchronized with the heap databased.  
+* Heap database is defined by the double pointer  attUIntX_inst  in the attributeDatabase.cpp
+* For testing purposes the array  attArray (in attributeDatabase.cpp ) is defined in order 
+* to initialize the heap database and the nvm database with values during the tests . 
+* The function loadDatabaseInHeap()   loads the database entries (attributes) values 
+* from the attArray in the Heap database (  attUIntX_inst  )  . Subsequently  the writeDatabaseToNvm() 
+* loads the Heap database in the NVM. Check unit test testFlashReadWrite.cpp .
+* 
+*/
 
 
 #include <iostream>

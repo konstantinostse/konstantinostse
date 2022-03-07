@@ -41,7 +41,7 @@ bool isDatabaseLoadedInRam = false;
 /* Flag to check if database for testing  is loaded localy in NVM */
 bool isDatabaseLoadedInNvm = false;
 
-/* Double Pointer for loading all the database localy to RAM */
+/* Double Pointer for loading all the database localy to RAM ( Heap) */
 attUIntX_t** attUIntX_inst;
 
 /*

@@ -1,11 +1,8 @@
 /**
- * @file nvmDriver.h
+ * @file bitwise.h
  *
- * @brief NVM read/write driver function prototypes
+ * @brief bitwise function prototypes
  *
- * This contains the prototypes for the NVM
- * driver and  any macros, constants,
- * or global variables you will need.
  *
  */
 
@@ -15,9 +12,8 @@
 
 #include <stdint.h>
 
-/*----------------------------*/
+
 /* Data access macros         */
-/*----------------------------*/
 
 #define SHIF16(a) ((a)&0x0001? 0:(a)&0x0002? 1:(a)&0x0004? 2:(a)&0x0008? 3: \
                    (a)&0x0010? 4:(a)&0x0020? 5:(a)&0x0040? 6:(a)&0x0080? 7: \

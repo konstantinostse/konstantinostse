@@ -1,7 +1,7 @@
 /**
  * @file bitwise.h
  *
- * @brief bitwise function prototypes
+ * @brief bitwise function implementation.
  *
  *
  */

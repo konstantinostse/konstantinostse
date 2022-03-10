@@ -88,6 +88,9 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>Default</LanguageStandard>
+      <LanguageStandard_C>Default</LanguageStandard_C>
+      <CompileAs>CompileAsC</CompileAs>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -139,15 +142,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="attributeDatabase.cpp" />
-    <ClCompile Include="crcCheck.cpp" />
-    <ClCompile Include="DBInterface.cpp" />
-    <ClCompile Include="debugFunctions.cpp" />
-    <ClCompile Include="memory.cpp" />
-    <ClCompile Include="nvmDriver.cpp" />
-    <ClCompile Include="testBitwise.cpp" />
-    <ClCompile Include="testCrcCheck.cpp" />
-    <ClCompile Include="testFlashReadWrite.cpp" />
+    <ClCompile Include="attributeDatabase.c" />
+    <ClCompile Include="crcCheck.c">
+      <LanguageStandard_C Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">stdc17</LanguageStandard_C>
+    </ClCompile>
+    <ClCompile Include="DBInterface.c" />
+    <ClCompile Include="debugFunctions.c" />
+    <ClCompile Include="memory.c" />
+    <ClCompile Include="nvmDriver.c" />
+    <ClCompile Include="testBitwise.c" />
+    <ClCompile Include="testCrcCheck.c" />
+    <ClCompile Include="testFlashReadWrite.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="attributeDatabase.h" />

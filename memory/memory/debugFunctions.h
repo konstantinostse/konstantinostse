@@ -11,13 +11,7 @@
 #include <stdio.h>
 #include "attributes.h"
 
-
-
-void printData(UInt8_t* data, UInt8_t length);
-
-void printData(UInt16_t* data, UInt8_t length);
-
-void printData(UInt32_t* data, UInt8_t length);
+void printData(void* data, UInt8_t length, UInt8_t dataType);
 
 #endif /* __DEBUG_FUNCTIONS__ */
 

@@ -15,6 +15,7 @@
 #ifndef __ATTRIBUTE_DATABASE__
 #define __ATTRIBUTE_DATABASE__
 
+#include <stdbool.h>
 #include "attributes.h"
 
 #define DATABASE_SIZE 6

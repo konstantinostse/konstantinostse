@@ -42,31 +42,31 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="memory.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="attributeDatabase.cpp">
-      <Filter>Source Files\attributeDatabase</Filter>
-    </ClCompile>
-    <ClCompile Include="DBInterface.cpp">
+    <ClCompile Include="DBInterface.c">
       <Filter>Source Files\DBInterface</Filter>
     </ClCompile>
-    <ClCompile Include="nvmDriver.cpp">
-      <Filter>Source Files\nvmDriver</Filter>
-    </ClCompile>
-    <ClCompile Include="testFlashReadWrite.cpp">
-      <Filter>Unit_Tests_Source_Files\testFlashReadWrite</Filter>
-    </ClCompile>
-    <ClCompile Include="testCrcCheck.cpp">
-      <Filter>Unit_Tests_Source_Files\testCrcCheck</Filter>
-    </ClCompile>
-    <ClCompile Include="testBitwise.cpp">
-      <Filter>Unit_Tests_Source_Files\testBitwise</Filter>
-    </ClCompile>
-    <ClCompile Include="crcCheck.cpp">
+    <ClCompile Include="crcCheck.c">
       <Filter>Source Files\crcCheck</Filter>
     </ClCompile>
-    <ClCompile Include="debugFunctions.cpp">
+    <ClCompile Include="attributeDatabase.c">
+      <Filter>Source Files\attributeDatabase</Filter>
+    </ClCompile>
+    <ClCompile Include="nvmDriver.c">
+      <Filter>Source Files\nvmDriver</Filter>
+    </ClCompile>
+    <ClCompile Include="memory.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="testBitwise.c">
+      <Filter>Unit_Tests_Source_Files\testBitwise</Filter>
+    </ClCompile>
+    <ClCompile Include="testCrcCheck.c">
+      <Filter>Unit_Tests_Source_Files\testCrcCheck</Filter>
+    </ClCompile>
+    <ClCompile Include="testFlashReadWrite.c">
+      <Filter>Unit_Tests_Source_Files\testFlashReadWrite</Filter>
+    </ClCompile>
+    <ClCompile Include="debugFunctions.c">
       <Filter>Source Files\debugFunctions</Filter>
     </ClCompile>
   </ItemGroup>

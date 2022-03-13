@@ -11,15 +11,6 @@
 
 #include "attributeDatabase.h"
 
-
-/** @brief Load to the heap (attUIntX_inst) 
- *         all the attribute from the attArray[].
- *         This function allocate resources 
- *         in the Heap memory for the Database.
- *  @return  0 for Success and -1 for failure.
- */
-int loadDatabaseInHeap();
-
 /** @brief Unload from the heap all the attributes 
 *          which they were loaded from the attArray[] with the
 *          function loadDatabase().
@@ -33,7 +24,7 @@ int unloadDatabaseFromHeap();
 *          to the NVM.
 *  @return 0 for Success and -1 for failure.
 */
-int writeDatabaseToNvm();
+int writeDatabaseFromHeapToNvm();
 
 /** @brief Read an attribute from the NVM.
  *         In order to use this function the database 

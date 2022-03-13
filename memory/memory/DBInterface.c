@@ -19,101 +19,8 @@
 #include "crcCheck.h"
 #include "debugFunctions.h"
 
-/* Enable debug option for the DBInterface.cpp.*/
+/* Enable debug option for the DBInterface.c.*/
 #define _ENABLE_DEBUG_
-
-/** @brief Copy attributes between databases.
-*  @param targetAttribute  Destination Attribute 
-*  @param sourceAttribute  Source Attribute.
-*  @param type Type of the attribute's data.
-*  @param entrySize Size of the current attribute in bytes.
-*  @return Void.
-*/
-static int copyDatabaseEntries( attUIntX_t* targetAttribute , attUIntXdb_t* sourceAttribute, UInt8_t type, UInt32_t *entrySize)
-{
- 
-    switch (type)
-    {
-    case uint8PtrType:
-        targetAttribute->id = sourceAttribute->id;
-        targetAttribute->option = sourceAttribute->option;
-        targetAttribute->length = sourceAttribute->length;
-        targetAttribute->data = (UInt8_t*)malloc(sourceAttribute->length * sizeof(UInt8_t));
-        memcpy(targetAttribute->data, sourceAttribute->data, sourceAttribute->length);
-        targetAttribute->crc = (UInt8_t*)malloc(sizeof(UInt8_t));
-        *((UInt8_t*)(targetAttribute->crc)) = (UInt8_t)sourceAttribute->crc;
-
-         /*Estimates attribute's size in bytes and updates  lookup table attributeSize[DATABASE_SIZE]*/ 
-        *entrySize = sizeof(gpNvm_AttrId) + sizeof(UInt32_t) + sizeof(UInt8_t) + targetAttribute->length * sizeof(UInt8_t) + sizeof(UInt8_t);
-#ifdef _ENABLE_DEBUG_
-        printData((UInt8_t*)(targetAttribute->data), targetAttribute->length, uint8PtrType);
-#endif
-        break;
-
-    case uint16PtrType:
-        targetAttribute->id = sourceAttribute->id;
-        targetAttribute->option = sourceAttribute->option;
-        targetAttribute->length = sourceAttribute->length;
-        targetAttribute->data = (UInt16_t*)malloc(sourceAttribute->length * sizeof(UInt16_t));
-        memcpy(targetAttribute->data, sourceAttribute->data, sourceAttribute->length * sizeof(UInt16_t));
-        targetAttribute->crc = (UInt16_t*)malloc(sizeof(UInt16_t));
-        *((UInt16_t*)(targetAttribute->crc)) = (UInt16_t)sourceAttribute->crc;
-
-        /*Estimates attribute's size in bytes and updates  lookup table attributeSize[DATABASE_SIZE]*/
-        *entrySize = sizeof(gpNvm_AttrId) + sizeof(UInt32_t) + sizeof(UInt8_t) + targetAttribute->length * sizeof(UInt16_t) + sizeof(UInt16_t);
-#ifdef _ENABLE_DEBUG_
-        printData((UInt16_t*)(targetAttribute->data), targetAttribute->length, uint16PtrType);
-#endif
-        break;
-
-    case uint32PtrType:
-        targetAttribute->id = sourceAttribute->id;
-        targetAttribute->option = sourceAttribute->option;
-        targetAttribute->length = sourceAttribute->length;
-        targetAttribute->data = (UInt32_t*)malloc(sourceAttribute->length * sizeof(UInt32_t));
-        memcpy(targetAttribute->data, sourceAttribute->data, sourceAttribute->length * sizeof(UInt32_t));
-        targetAttribute->crc = (UInt32_t*)malloc(sizeof(UInt32_t));
-        *((UInt32_t*)(targetAttribute->crc)) = (UInt32_t)sourceAttribute->crc;
-
-        /*Estimates attribute's size in bytes and updates  lookup table attributeSize[DATABASE_SIZE]*/
-        *entrySize = sizeof(gpNvm_AttrId) + sizeof(UInt32_t) + sizeof(UInt8_t)+ targetAttribute->length * sizeof(UInt32_t) + sizeof(UInt32_t) ;
-#ifdef _ENABLE_DEBUG_
-        printData((UInt32_t*)(targetAttribute->data), targetAttribute->length, uint32PtrType);
-#endif
-        break;
-    default:
-        /* Invalid Data type */
-        return -1;
-        break;
-    }
-    
-    return 0;
-}
-
-int  loadDatabaseInHeap()
-{
-    attUIntX_inst = (attUIntX_t**) malloc (DATABASE_SIZE * sizeof(attUIntX_t*));
-    for (int i = 0; i < DATABASE_SIZE; i++)
-    {
-        attUIntX_inst[i] = (attUIntX_t*)malloc(sizeof(attUIntX_t));
-        if (i > 0)
-        {
-            attributeOffset[i] = attributeOffset[i-1] + attributeSize[i - 1];
-        }
-        if (-1 == copyDatabaseEntries(attUIntX_inst[i], (attArray + i), attributeType[i], attributeSize + i))
-        {
-            free(attUIntX_inst[i]);
-            attUIntX_inst[i] = NULL;
-            return -1;
-        }
-    }
-
-    /* Attributes Database is loaded in Ram. */
-    isDatabaseLoadedInRam = true;
-
-    /* Succes to load the database in Ram!*/
-    return 0;
-}
 
 int unloadDatabaseFromHeap()
 {
@@ -143,6 +50,33 @@ int unloadDatabaseFromHeap()
     }
 }
 
+int writeDatabaseFromHeapToNvm()
+{
+    /* Is Attribute database loaded in RAM in attUIntX_inst ? */
+    if (true == isDatabaseLoadedInRam)
+    {
+        for (int i = 0; i < DATABASE_SIZE; i++)
+        {
+            if (-1 == writeDatabaseAttribute(attUIntX_inst[i], i))
+            {
+                /* Failure to write attribute in NVM. */
+                return -1;
+            }
+        }
+
+        isDatabaseLoadedInNvm = true;
+
+        return 0;
+    }
+    else
+    {
+        /* Attribute database is not loaded in RAM in attUIntX_inst
+        *  in order to write it in the NVM. Call first loadDatabase();
+        */
+        return -1;
+    }
+}
+
 gpNvm_Result gpNvm_setAttribute(gpNvm_AttrId attrId, UInt8_t pLenght, void* pValue)
 {    
     /* Is Attribute database loaded in the Nvm ? */
@@ -153,7 +87,7 @@ gpNvm_Result gpNvm_setAttribute(gpNvm_AttrId attrId, UInt8_t pLenght, void* pVal
             /* Attribute offset  for the data in bytes.*/
             UInt16_t offset = 0;
             /* Attribute data size + crc size in bytes.*/
-            UInt16_t dataSize = 0;
+            UInt8_t dataSize = 0;
             UInt8_t* buffer = NULL;
 
             /* id offset */
@@ -169,7 +103,11 @@ gpNvm_Result gpNvm_setAttribute(gpNvm_AttrId attrId, UInt8_t pLenght, void* pVal
             case uint8PtrType:
                 /* Allocate buffer with size attUIntX_inst[attrId]->length and not pLenght.
                 *  Maximum Attribute data field size in the database cannot change in runtime.*/
-                buffer = (UInt8_t*)calloc((attUIntX_inst[attrId]->length + 1) * sizeof(UInt8_t), sizeof(UInt8_t));
+                buffer = (UInt8_t*)calloc( (attUIntX_inst[attrId]->length + 1) * sizeof(UInt8_t), sizeof(UInt8_t));
+                if (buffer == NULL)
+                {
+                    return -1;
+                }
                 /* Copy new attribute value in the buffer. */
                 memcpy(buffer, (UInt8_t*)pValue, pLenght * sizeof(UInt8_t));
                 /* Update the new attribute value in the RAM array. */
@@ -184,6 +122,10 @@ gpNvm_Result gpNvm_setAttribute(gpNvm_AttrId attrId, UInt8_t pLenght, void* pVal
                 /* Allocate buffer with size attUIntX_inst[attrId]->length and not pLenght.
                 *  Maximum Attribute data field size in the database cannot change in runtime.*/
                 buffer = (UInt8_t*)calloc((attUIntX_inst[attrId]->length + 1) * sizeof(UInt16_t), sizeof(UInt16_t));
+                if (buffer == NULL)
+                {
+                    return -1;
+                }
                 /* Copy new attribute value in the buffer. */
                 memcpy(buffer, (UInt8_t*)pValue, pLenght * sizeof(UInt16_t));
                 /* Update the new attribute value in the RAM array. */
@@ -198,6 +140,10 @@ gpNvm_Result gpNvm_setAttribute(gpNvm_AttrId attrId, UInt8_t pLenght, void* pVal
                 /* Allocate buffer with size attUIntX_inst[attrId]->length and not pLenght.
                 *  Maximum Attribute data field size in the database cannot change in runtime.*/
                 buffer = (UInt8_t*)calloc((attUIntX_inst[attrId]->length + 1) * sizeof(UInt32_t), sizeof(UInt32_t));
+                if (buffer == NULL)
+                {
+                    return -1;
+                }
                 /* Copy mew attribute value in the buffer. */
                 memcpy(buffer, (UInt8_t*)pValue, pLenght * sizeof(UInt32_t));
                 memcpy(attUIntX_inst[attrId]->data, (UInt8_t*)pValue, pLenght * sizeof(UInt32_t));
@@ -216,7 +162,7 @@ gpNvm_Result gpNvm_setAttribute(gpNvm_AttrId attrId, UInt8_t pLenght, void* pVal
             }
             /* Check if the offset in the database is ok. */
             assert((offset + dataSize) == attributeSize[attrId]);
-#ifdef _ENABLE_DEBUG_            
+#ifdef _ENABLE_DEBUG_
             printData((UInt8_t*)(buffer), dataSize, uint8PtrType);
 #endif            
             if (-1 == writeNvm(buffer, attributeOffset[attrId] + offset, dataSize))
@@ -296,7 +242,10 @@ int writeDatabaseAttribute(attUIntX_t* const attribute , UInt8_t attributeNum)
     UInt16_t offset = 0;
 
     UInt8_t* buffer = (UInt8_t*)malloc(attributeSize[attributeNum] * sizeof(UInt8_t));
-
+    if (buffer == NULL)
+    {
+        return -1;
+    }
     /* copy id */
     memcpy(buffer + offset, &(attributeLocal->id), sizeof(gpNvm_AttrId));
     /* copy option */
@@ -312,7 +261,7 @@ int writeDatabaseAttribute(attUIntX_t* const attribute , UInt8_t attributeNum)
     case uint8PtrType:
         memcpy(buffer + offset, attributeLocal->data, attributeLocal->length * sizeof(UInt8_t));
         offset += attributeLocal->length * sizeof(UInt8_t);
-        /* copy CRC */        
+        /* copy CRC */
         crcCheck((UInt8_t*)(attributeLocal->data), (UInt8_t*)(attributeLocal->crc), attributeLocal->length, uint8PtrType);
         memcpy(buffer + offset, attributeLocal->crc, sizeof(UInt8_t));
         offset += sizeof(UInt8_t);
@@ -367,7 +316,16 @@ int readDatabaseAttribute(attUIntX_t* const attribute, UInt8_t attributeNum)
         UInt16_t offset = 0;
         UInt32_t crcLocal = 0;
 
+        assert(0 != attributeSize[attributeNum]);
+        if ( 0 == attributeSize[attributeNum])
+        {
+            return -1;
+        }
         UInt8_t* buffer = (UInt8_t*)malloc(attributeSize[attributeNum] * sizeof(UInt8_t));
+        if (buffer == NULL)
+        {
+            return -1;
+        }
 
         if (-1 == readNvm(buffer, attributeOffset[attributeNum], attributeSize[attributeNum]))
         {
@@ -481,29 +439,3 @@ int readDatabaseAttribute(attUIntX_t* const attribute, UInt8_t attributeNum)
     }
 }
 
-int writeDatabaseToNvm()
-{
-    /* Is Attribute database loaded in RAM in attUIntX_inst ? */
-    if (true == isDatabaseLoadedInRam)
-    {
-        for (int i = 0; i < DATABASE_SIZE; i++)
-        {
-            if (-1 == writeDatabaseAttribute(attUIntX_inst[i], i))
-            {
-                /* Failure to write attribute in NVM. */
-                return -1;
-            }
-        }
-
-        isDatabaseLoadedInNvm = true;
-
-        return 0;
-    }
-    else
-    {
-        /* Attribute database is not loaded in RAM in attUIntX_inst
-        *  in order to write it in the NVM. Call first loadDatabase();
-        */
-        return -1;
-    }
-}

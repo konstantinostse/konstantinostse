@@ -5,7 +5,7 @@
 *    Implementf a non - volatile memory storage component.This component should be able to backup and restore values 
 *    corresponding to a unique attribute identifier. For the simplicity of the exercise the underlying non - volatile memory
 *    (eeprom, flash, …) can be modelled as a file.
-* 
+*
 *    • Embedded System supports MMU so malloc can be used without fragmentation issues.
 *
 *    Component Specification

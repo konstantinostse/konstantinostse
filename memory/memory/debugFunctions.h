@@ -11,9 +11,9 @@
 #include <stdio.h>
 #include "attributes.h"
 
- /** @brief Print the datat for a UInt8_t ,UInt16_t or
+ /** @brief Print the data for a UInt8_t ,UInt16_t or
   *         UInt32_t array(data) with size length and return the crc value.
-  *  @param[in]    data      Void pointer to array with the Data.  
+  *  @param[in]    data      Void pointer to array with the Data.
   *  @param[in]    length    Size of the array.
   *  @param[in]    dataType  Data type of the array.
   *                          uint8PtrType for pointer to UInt8_t.

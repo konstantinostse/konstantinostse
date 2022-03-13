@@ -6,10 +6,6 @@
 * This contains the attributes declarations for the Database
 * and  any macros, constants or global variables you will need.
 *
-* Also it contains the attributes declarations for the
-* testing Database which it will be loaded localy in RAM
-* for testing purposes
-*
 */
 
 #ifndef __ATTRIBUTE_DATABASE__
@@ -19,9 +15,6 @@
 #include "attributes.h"
 
 #define DATABASE_SIZE 6
-
-/* Database to load localy in RAM for testing */
-extern attUIntXdb_t attArray[DATABASE_SIZE];
 
 /* Flag to check if database for testing  is loaded localy in Ram */
 extern bool isDatabaseLoadedInRam;

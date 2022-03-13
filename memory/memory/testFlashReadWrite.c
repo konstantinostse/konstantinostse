@@ -4,6 +4,7 @@
 */
 
 #include "DBInterface.h"
+#include "databaseTestHelper.h"
 #include <malloc.h>
 #include <stdio.h>
 
@@ -25,30 +26,42 @@ enum attID
 static void setupTest()
 {
     /* This gets run before every test.*/
-    if (-1 == loadDatabaseInHeap())
+    if (-1 == loadDatabaseInHeapFromStack())
     {
         printf(" Cannot load database in Heap");
         return;
     }
 
-    if (-1 == writeDatabaseToNvm())
+    if (-1 == writeDatabaseFromHeapToNvm())
     {
         printf(" Cannot load database in Nvm");
         return;
     }
 
     /* Initialise Testing attributes */
-    attS00_t       = (attUIntX_t*) malloc( sizeof(attUIntX_t));
+    attS00_t = (attUIntX_t*)malloc(sizeof(attUIntX_t));
+    if (attS00_t == NULL)
+    {
+        return;
+    }
     attS00_t->data = (UInt8_t*) malloc( 4 * sizeof(UInt8_t));
     attS00_t->crc  = (UInt8_t*) malloc( sizeof(UInt8_t));
 
-    attS05_t = (attUIntX_t*)malloc(sizeof(attUIntX_t));
+    attS05_t       = (attUIntX_t*)malloc(sizeof(attUIntX_t));
+    if (attS05_t == NULL)
+    {
+        return ;
+    }
     attS05_t->data = (UInt16_t*)malloc(7 * sizeof(UInt16_t));
-    attS05_t->crc = (UInt16_t*)malloc(sizeof(UInt16_t));
+    attS05_t->crc  = (UInt16_t*)malloc(sizeof(UInt16_t));
 
-    attS04_t = (attUIntX_t*)malloc(sizeof(attUIntX_t));
+    attS04_t       = (attUIntX_t*)malloc(sizeof(attUIntX_t));
+    if (attS04_t == NULL)
+    {
+        return;
+    }
     attS04_t->data = (UInt32_t*)malloc(5 * sizeof(UInt32_t));
-    attS04_t->crc = (UInt32_t*)malloc(sizeof(UInt32_t));
+    attS04_t->crc  = (UInt32_t*)malloc(sizeof(UInt32_t));
 }
 
 static void teardownTest()

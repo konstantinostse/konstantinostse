@@ -40,6 +40,9 @@
     <Filter Include="Source Files\debugFunctions">
       <UniqueIdentifier>{5343dffd-fac8-457e-8942-7d8e86869178}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\databaseTestHelper">
+      <UniqueIdentifier>{6bce7cb1-61d3-4ba8-8e51-f891c5f63322}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DBInterface.c">
@@ -68,6 +71,9 @@
     </ClCompile>
     <ClCompile Include="debugFunctions.c">
       <Filter>Source Files\debugFunctions</Filter>
+    </ClCompile>
+    <ClCompile Include="databaseTestHelper.c">
+      <Filter>Source Files\databaseTestHelper</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -100,6 +106,9 @@
     </ClInclude>
     <ClInclude Include="bitwise.h">
       <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="databaseTestHelper.h">
+      <Filter>Source Files\databaseTestHelper</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

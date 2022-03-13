@@ -37,9 +37,9 @@ extern attUIntX_t** attUIntX_inst;
 */
 
 /* Database 's lookup table for attributes size */
-extern UInt32_t		attributeSize[DATABASE_SIZE];
+extern UInt32_t        attributeSize[DATABASE_SIZE];
 /* Database 's lookup table for attributes byte offset in memory */
-extern UInt8_t		attributeOffset[DATABASE_SIZE];
+extern UInt8_t        attributeOffset[DATABASE_SIZE];
 /* Database 's lookup table for attributes types */
 extern UInt8_t      attributeType[DATABASE_SIZE];
 

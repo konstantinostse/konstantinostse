@@ -75,5 +75,5 @@ int main()
     //testCrcCheck();
     //testBitwise();
 
-	return 0;
+    return 0;
 }

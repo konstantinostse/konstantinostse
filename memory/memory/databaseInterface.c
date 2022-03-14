@@ -20,7 +20,14 @@
 #include "debugFunctions.h"
 
 /* Enable debug option for the databaseInterface.c.*/
-#define _ENABLE_DEBUG_
+//#define _ENABLE_DEBUG_
+
+#ifdef _ENABLE_DEBUG_
+    #define DEBUG_PRINTF(a,b,c) printData(a,b,c)
+#else
+    #define DEBUG_PRINTF(a,b,c) 
+#endif
+
 
 /*----------------Static functions prototypes declaration ----------------------------------*/
 static int writeDatabaseAttribute(attUIntX_t* const attribute, UInt8_t attributeNum);
@@ -70,9 +77,8 @@ int writeDatabaseFromHeapToNvm()
             /* NVM write failure! */
             return -1;
         }
-        
-        printData(attributeSize, databaseSize, uint32PtrType);
 
+        DEBUG_PRINTF(attributeSize, databaseSize, uint32PtrType);
         offset += sizeof(UInt32_t);
         if (-1 == writeNvm( attributeSize, offset, databaseSize * sizeof(UInt32_t)))
         {
@@ -80,8 +86,7 @@ int writeDatabaseFromHeapToNvm()
             return -1;
         }
 
-        printData(attributeOffset, databaseSize, uint8PtrType);
-
+        DEBUG_PRINTF(attributeOffset, databaseSize, uint8PtrType);
         offset += databaseSize * sizeof(UInt32_t);
         if (-1 == writeNvm( attributeOffset, offset, databaseSize * sizeof(UInt8_t)))
         {
@@ -89,8 +94,7 @@ int writeDatabaseFromHeapToNvm()
             return -1;
         }
 
-        printData(attributeType, databaseSize, uint8PtrType);
-
+        DEBUG_PRINTF(attributeType, databaseSize, uint8PtrType);
         offset += databaseSize * sizeof(UInt8_t);
         if (-1 == writeNvm( attributeType, offset, databaseSize * sizeof(UInt8_t)))
         {
@@ -109,7 +113,8 @@ int writeDatabaseFromHeapToNvm()
                 /* Failure to write attribute in NVM. */
                 return -1;
             }
-            printData(attUIntX_inst[i]->data, attUIntX_inst[i]->length, attributeType[i]);
+
+            DEBUG_PRINTF(attUIntX_inst[i]->data, attUIntX_inst[i]->length, attributeType[i]);
         }
 
         isDatabaseLoadedInNvm = true;
@@ -158,8 +163,7 @@ int readDatabaseFromNvmToHeap()
                 return -1;
             }
 
-            printData(attributeSize, databaseSize, uint32PtrType);
-
+            DEBUG_PRINTF(attributeSize, databaseSize, uint32PtrType);
             offset += databaseSize * sizeof(UInt32_t);
             attributeOffset = (UInt8_t*)malloc(databaseSize * sizeof(UInt8_t));
             if (NULL == attributeOffset)
@@ -172,7 +176,7 @@ int readDatabaseFromNvmToHeap()
                 return -1;
             }
 
-            printData(attributeOffset, databaseSize, uint8PtrType);
+            DEBUG_PRINTF(attributeOffset, databaseSize, uint8PtrType);
             offset += databaseSize * sizeof(UInt8_t);
             attributeType = (UInt8_t*)malloc(databaseSize * sizeof(UInt8_t));
             if (NULL == attributeType)
@@ -185,7 +189,7 @@ int readDatabaseFromNvmToHeap()
                 return -1;
             }
 
-            printData(attributeType, databaseSize, uint8PtrType);
+            DEBUG_PRINTF(attributeType, databaseSize, uint8PtrType);
             offset += databaseSize * sizeof(UInt8_t);            
             /* Set the global variable for the offset for the first attribute in the database */
             firstAttributeOffset = offset;
@@ -355,9 +359,8 @@ gpNvm_Result gpNvm_setAttribute(gpNvm_AttrId attrId, UInt8_t pLenght, void* pVal
             }
             /* Check if the offset in the database is ok. */
             assert((offset + dataSize) == attributeSize[attrId]);
-#ifdef _ENABLE_DEBUG_
-            printData((UInt8_t*)(buffer), dataSize, uint8PtrType);
-#endif            
+
+            DEBUG_PRINTF((UInt8_t*)(buffer), dataSize, uint8PtrType);
             if (-1 == writeNvm(buffer, firstAttributeOffset+attributeOffset[attrId] + offset, dataSize))
             {
                 free(buffer);
@@ -454,10 +457,10 @@ static int writeDatabaseAttribute(attUIntX_t* const attribute , UInt8_t attribut
         attUIntX_t* attributeLocal = attribute;
         UInt16_t offset = 0;
 
-        if (attributeLocal->length > attributeMaximumDataLength)
+        if (attributeLocal->length > ATTRIBUTE_MAXIMUM_DATA_LENGHT)
         {
             /* Attribute data length is greater than 512 bytes */
-            assert( attributeLocal->length <= attributeMaximumDataLength );
+            assert( attributeLocal->length <= ATTRIBUTE_MAXIMUM_DATA_LENGHT );
             return -1;
         }
 
@@ -511,9 +514,8 @@ static int writeDatabaseAttribute(attUIntX_t* const attribute , UInt8_t attribut
         }
         /* Check if the offset in the database is ok. */
         assert(offset == attributeSize[attributeNum]);
-#ifdef _ENABLE_DEBUG_
-        printData((UInt8_t*)(buffer), attributeSize[attributeNum], uint8PtrType);
-#endif
+
+        DEBUG_PRINTF((UInt8_t*)(buffer), attributeSize[attributeNum], uint8PtrType);
         if (-1 == writeNvm(buffer, firstAttributeOffset + attributeOffset[attributeNum], attributeSize[attributeNum]))
         {
             free(buffer);
@@ -572,9 +574,8 @@ static int readDatabaseAttribute(attUIntX_t* const attribute, UInt8_t attributeN
             /* NVM write failure! */
             return -1;
         }
-#ifdef _ENABLE_DEBUG_
-        //printData((UInt8_t*)(buffer), attributeSize[attributeNum], uint8PtrType);
-#endif
+
+        DEBUG_PRINTF((UInt8_t*)(buffer), attributeSize[attributeNum], uint8PtrType);
         /* copy id */
         memcpy(&(attributeLocal->id), buffer + offset, sizeof(gpNvm_AttrId));
         /* copy option */
@@ -605,9 +606,8 @@ static int readDatabaseAttribute(attUIntX_t* const attribute, UInt8_t attributeN
                 /* Error reading Data from the NVM*/
                 return -1;
             }
-#ifdef _ENABLE_DEBUG_
-            printData((UInt8_t*)(attributeLocal->data), attributeLocal->length, uint8PtrType);
-#endif
+
+            DEBUG_PRINTF((UInt8_t*)(attributeLocal->data), attributeLocal->length, uint8PtrType);
             break;
         case uint16PtrType:
             memcpy(attributeLocal->data, buffer + offset, attributeLocal->length * sizeof(UInt16_t));
@@ -626,9 +626,8 @@ static int readDatabaseAttribute(attUIntX_t* const attribute, UInt8_t attributeN
                 /* Error reading Data from the NVM*/
                 return -1;
             }
-#ifdef _ENABLE_DEBUG_
-            printData((UInt16_t*)(attributeLocal->data), attributeLocal->length, uint16PtrType);
-#endif
+
+            DEBUG_PRINTF((UInt16_t*)(attributeLocal->data), attributeLocal->length, uint16PtrType);
             break;
         case uint32PtrType:
             memcpy(attributeLocal->data, buffer + offset, attributeLocal->length * sizeof(UInt32_t));
@@ -649,9 +648,8 @@ static int readDatabaseAttribute(attUIntX_t* const attribute, UInt8_t attributeN
                 return -1;
             }
 #endif
-#ifdef _ENABLE_DEBUG_
-            printData((UInt32_t*)(attributeLocal->data), attributeLocal->length, uint32PtrType);
-#endif
+
+            DEBUG_PRINTF((UInt32_t*)(attributeLocal->data), attributeLocal->length, uint32PtrType);
             break;
         default:
             free(buffer);

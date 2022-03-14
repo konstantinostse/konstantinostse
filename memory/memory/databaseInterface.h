@@ -3,7 +3,7 @@
  *
  * @brief Database interface function prototypes.
  * 
- * Functions prototypes for interacting with the Attributes Database. 
+ * Functions prototypes for interfacing with the Attributes Database. 
  */
 
 #ifndef __NVM_DB_INTERFACE__
@@ -11,11 +11,9 @@
 
 #include "attributeDatabase.h"
 
-/** @brief Unload from the heap all the attributes 
-*          which they were loaded from the attArray[] with the
-*          function loadDatabase().
+/** @brief Free attUIntX_inst pointer (Heap Database) from the heap.
 *          This function deallocate resources
-*          in the Heap memory which they were allocated for the Database.
+*          in the Heap memory which they were allocated for the heap Database.
 *  @return 0 for Success and -1 for failure.
 */
 int unloadDatabaseFromHeap();
@@ -31,14 +29,13 @@ int writeDatabaseFromHeapToNvm();
 */
 int readDatabaseFromNvmToHeap();
 
-/** @brief Read an attribute from the NVM.
+/** @brief Read the data from an attribute from the nvm.
  *         In order to use this function the database 
- *         should be loaded both in NVM ( writeDatabaseToNvm() )
- *         and Ram ( loadDatabaseInHeap() ).
+ *         should be loaded both in the nvm and in the heap.
  *  @param[in]   attrId  Attribute ID in the database.
- *  @param[out]  pLenght Size of the Attributes Data field.
- *                       Size is in bytes and it will be returned from the function.
- *  @param[out]  pValue Pointer to Array with the attrinute's data.
+ *  @param[out]  pLenght Size of the attributes data field.
+ *                       Size is in bytes and it is an output in this function.
+ *  @param[out]  pValue Pointer to array with the attrinute's data.
  *                       It supports UInt8_t , UInt16_t and UInt32_t types.
  *  @return              0 for Success and -1 for failure.
  */
@@ -46,13 +43,12 @@ gpNvm_Result gpNvm_getAttribute(gpNvm_AttrId attrId, UInt8_t* pLenght, void* pVa
 
 /** @brief Writes an attribute in the NVM Database.
  *         In order to use this function , the database
- *         should be loaded both in NVM ( writeDatabaseToNvm() )
- *         and Ram ( loadDatabaseInHeap() ).
+ *         should be loaded both in the NVM and in the heap.
  *  @param[in]   attrId  Attribute ID in the database.
  *  @param[in]   pLenght Size of the data for writing in NVM.It should not be bigger
  *                       from the maximum data lenght of the attribute.
  *                       Size should be in bytes.
- *  @param[in]   pValue  Pointer to Array with the attrinute's data to 
+ *  @param[in]   pValue  Pointer to Array with the attribute's data to 
  *                       be written in the nvm Database.It supports UInt8_t ,
  *                       UInt16_t and UInt32_t types.
  *  @return              0 for Success and -1 for failure.

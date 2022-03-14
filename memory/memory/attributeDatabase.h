@@ -1,9 +1,9 @@
 /**
 * @file attributeDatabase.h
 *
-* @brief Database attributes declarations.
+* @brief Heep database resources declarations.
 *
-* This contains the attributes declarations for the Database
+* This contains the attributes declarations for the heap database
 * and  any macros, constants or global variables you will need.
 *
 */
@@ -19,34 +19,34 @@
 /* Database attribute maximum data lenght is 512 bytes. */
 #define ATTRIBUTE_MAXIMUM_DATA_LENGHT 512 
 
-/* Flag to check if database is loaded in Ram */
+/* Flag to check if database is loaded in the nvm */
 extern bool isDatabaseLoadedInNvm;
 
-/* Flag to check if database is loaded in Heap */
+/* Flag to check if database is loaded in heap */
 extern bool isDatabaseLoadedInHeap;
 
-/* Flag to check if database is being loaded from Heap to Nvm or the opposite */
+/* Flag to check if database is being loaded from heap to nvm or the opposite */
 extern bool isDatabaseLoadingInProgress;
 
-/* Double Pointer for loading all the database to Heap from the NVM */
+/* Double Pointer for loading all the database to heap from the nvm or the stack*/
 extern attUIntX_t** attUIntX_inst;
 
-/* Database size in Attributes*/
+/* Database size in attributes*/
 extern UInt32_t databaseSize;
 
 /*
     Database 's lookup tables
 */
 
-/* Dynamic Database 's lookup table for attributes size */
+/* Dynamic Database 's lookup table for attributes size in the heap. */
 extern UInt32_t*        attributeSize;
 
-/* Dynamic Database 's lookup table for attributes byte offset in memory */
+/* Dynamic Database 's lookup table for attributes byte offset in the heap. */
 extern UInt8_t*        attributeOffset;
 
-/* Dynamic Database 's lookup table for attributes types */
+/* Dynamic Database 's lookup table for attributes types in the heap.*/
 extern UInt8_t*      attributeType;
 
-/* Offset for the first attribute in the database */
+/* Offset for the first attribute in the database in the heap*/
 extern UInt16_t firstAttributeOffset;
 #endif /* ATTRIBUTE_DATABASE */

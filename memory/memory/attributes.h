@@ -23,9 +23,10 @@ typedef unsigned int   UInt32_t;
 typedef UInt8_t gpNvm_AttrId;
 typedef UInt8_t gpNvm_Result;
 
-/* Database 's structure type definition according API specifications */
-/* Structure size offset = sizeof(gpNvm_AttrId)+sizeof(UInt32_t)+sizeof(UInt8_t)+sizeof(intType)
-  + sizeof(data) + sizeof(crc); */
+/* Database 's struct type definition according API specifications */
+/* Struct size offset = sizeof(gpNvm_AttrId)+sizeof(UInt32_t)+sizeof(UInt8_t)+sizeof(intType)
+ * + sizeof(data) + sizeof(crc); 
+ */
 typedef struct attUIntX
 {
     gpNvm_AttrId id;

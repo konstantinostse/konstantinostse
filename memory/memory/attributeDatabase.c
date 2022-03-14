@@ -1,9 +1,9 @@
 /**
  * @file attributeDatabase.h
  *
- * @brief Database attributes definitions.
+ * @brief Heap database resources  definitions.
  *
- * This contains the attributes definitions for the Database.   
+ * This contains the attributes definitions for the heap database.   
  *
  */
 
@@ -29,15 +29,15 @@ UInt32_t databaseSize = 0;
     Database 's lookup tables
 */
 
-/* Dyanmic Database lookup table for attributes size */
+/* Dyanmic Database lookup table for the attributes size in the heap database*/
 UInt32_t*    attributeSize = NULL;
 
-/* Dynamic Database lookup table for attributes byte offset in memory */
+/* Dynamic Database lookup table for attributes byte offset in the heap database */
 UInt8_t*     attributeOffset = NULL;
 
-/* Dynamic Database lookup table for attributes types */
+/* Dynamic Database lookup table for the attributes types in the heap database*/
 UInt8_t*     attributeType = NULL;
 
-/* Offset for the first attribute in the database */
+/* Offset for the first attribute in the heap database */
 UInt16_t firstAttributeOffset = 0;;
 

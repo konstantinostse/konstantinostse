@@ -7,7 +7,7 @@
 *
 */
 
-// Disable assert
+/* Disable assert */
 //#define NDEBUG
 #include <assert.h>
 #include <string.h>
@@ -30,8 +30,11 @@
 
 
 /*----------------Static functions prototypes declaration ----------------------------------*/
+
 static int writeDatabaseAttribute(attUIntX_t* const attribute, UInt8_t attributeNum);
 static int readDatabaseAttribute(attUIntX_t* const attribute, UInt8_t attributeNum);
+
+/*------------------------------------------------------------------------------------------*/
 
 int unloadDatabaseFromHeap()
 {
@@ -307,10 +310,10 @@ gpNvm_Result gpNvm_setAttribute(gpNvm_AttrId attrId, UInt8_t pLenght, void* pVal
                 }
                 /* Copy new attribute value in the buffer. */
                 memcpy(buffer, (UInt8_t*)pValue, pLenght * sizeof(UInt8_t));
-                /* Update the new attribute value in the RAM array. */
+                /* Update the new attribute value in the Heap array. */
                 memcpy(attUIntX_inst[attrId]->data, (UInt8_t*)pValue, pLenght * sizeof(UInt8_t));
                 dataSize = attUIntX_inst[attrId]->length * sizeof(UInt8_t);
-                /* copy CRC */                 
+                /* copy CRC */
                 crcCheck((UInt8_t*)(pValue), (UInt8_t*)((attUIntX_inst[attrId])->crc), pLenght, uint8PtrType);
                 memcpy(buffer + dataSize, (UInt8_t*)attUIntX_inst[attrId]->crc, sizeof(UInt8_t));
                 dataSize += sizeof(UInt8_t);
@@ -325,10 +328,10 @@ gpNvm_Result gpNvm_setAttribute(gpNvm_AttrId attrId, UInt8_t pLenght, void* pVal
                 }
                 /* Copy new attribute value in the buffer. */
                 memcpy(buffer, (UInt8_t*)pValue, pLenght * sizeof(UInt16_t));
-                /* Update the new attribute value in the RAM array. */
+                /* Update the new attribute value in the Heap array. */
                 memcpy(attUIntX_inst[attrId]->data, (UInt8_t*)pValue, pLenght * sizeof(UInt16_t));
                 dataSize = attUIntX_inst[attrId]->length * sizeof(UInt16_t);
-                /* copy CRC */                
+                /* copy CRC */
                 crcCheck((UInt16_t*)(pValue), (UInt16_t*)((attUIntX_inst[attrId])->crc), pLenght, uint8PtrType);
                 memcpy(buffer + dataSize, (UInt8_t*)attUIntX_inst[attrId]->crc, sizeof(UInt16_t));
                 dataSize += sizeof(UInt16_t);
@@ -343,6 +346,7 @@ gpNvm_Result gpNvm_setAttribute(gpNvm_AttrId attrId, UInt8_t pLenght, void* pVal
                 }
                 /* Copy mew attribute value in the buffer. */
                 memcpy(buffer, (UInt8_t*)pValue, pLenght * sizeof(UInt32_t));
+                /* Update the new attribute value in the Heap array. */
                 memcpy(attUIntX_inst[attrId]->data, (UInt8_t*)pValue, pLenght * sizeof(UInt32_t));
                 dataSize = attUIntX_inst[attrId]->length * sizeof(UInt32_t);
                 /* copy CRC */
@@ -437,14 +441,12 @@ gpNvm_Result gpNvm_getAttribute(gpNvm_AttrId attrId, UInt8_t* pLenght, void* pVa
     }
 }
 
-/** @brief Writes an attribute in the NVM Database.
+/** @brief Writes an attribute in the nvm Database and heap Database. Update both.
  *         In order to use this function , the database
- *         should be loaded both in NVM ( writeDatabaseToNvm() )
- *         and Ram ( loadDatabaseInHeap() ).
- *  @param[in]  attribute    Pointer to attUIntX_t type. It contains the attrinute's data which
- *                           they was read from the nvm Database. attUIntX_t pointer is used also
- *                           for loading the database in Ram.
- *  @param[in]  attributeNum Attribute ID.
+ *         should be loaded both in the nvm and in the heap.
+ *  @param[in]  attribute    Pointer to attUIntX_t type. It contains the database attribute to
+ *                           be written in the nvm Database and heap Database.  
+ *  @param[in]  attributeNum Attribute ID to be written in the nvm database.
  *  @return                  0 for Success and -1 for failure.
  */
 static int writeDatabaseAttribute(attUIntX_t* const attribute , UInt8_t attributeNum)
@@ -537,14 +539,12 @@ static int writeDatabaseAttribute(attUIntX_t* const attribute , UInt8_t attribut
     }
 }
 
-/** @brief Reads an attribute from the NVM Database.
+/** @brief Reads an attribute from the nvm Database.
  *         In order to use this function , the database
- *         should be loaded both in NVM ( writeDatabaseToNvm() )
- *         and Ram ( loadDatabaseInHeap() ).
- *  @param[in]  attribute    Pointer to attUIntX_t type. It contains the attrinute's data which
- *                           they was read from the nvm Database. attUIntX_t pointer is used also
- *                           for loading the database in Ram.
- *  @param[in]  attributeNum Attribute ID.
+ *         should be loaded both in the nvm and in the heap.
+ *  @param[in]  attribute    Pointer to attUIntX_t type. It contains the database attribute which
+ *                           it will be read from the nvm database.
+ *  @param[in]  attributeNum Attribute ID to be read from the nvm database.
  *  @return                  0 for Success and -1 for failure.
  */
 static int readDatabaseAttribute(attUIntX_t* const attribute, UInt8_t attributeNum)

@@ -65,12 +65,14 @@
 #include "testFlashReadWrite.h"
 #include "testCrcCheck.h"
 #include "testBitwise.h"
+#include "testSetGetAttribute.h"
 
 #endif /* ENABLE_UNIT_TEST */
 
 int main()
 {
-    testFlashReadWrite();
+    testSetGetAttribute();
+    //testFlashReadWrite();
     //testCrcCheck();
     //testBitwise();
 

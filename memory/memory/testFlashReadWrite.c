@@ -23,6 +23,8 @@ enum attID
     att05Data    
 };
 
+UInt8_t AttributeDataBuffer[512];
+
 static void setupTest()
 {
 #if 0

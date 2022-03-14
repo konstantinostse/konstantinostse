@@ -43,6 +43,9 @@
     <Filter Include="Source Files\databaseInterface">
       <UniqueIdentifier>{4f0227d2-2cfd-44ff-8123-c6fada805e7d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Unit_Tests_Source_Files\testSetGetAttribute">
+      <UniqueIdentifier>{aa8a5061-73e1-474e-8b02-e396e77afb5e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="crcCheck.c">
@@ -74,6 +77,9 @@
     </ClCompile>
     <ClCompile Include="databaseInterface.c">
       <Filter>Source Files\databaseInterface</Filter>
+    </ClCompile>
+    <ClCompile Include="testSetGetAttribute.c">
+      <Filter>Unit_Tests_Source_Files\testSetGetAttribute</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -109,6 +115,9 @@
     </ClInclude>
     <ClInclude Include="databaseInterface.h">
       <Filter>Source Files\databaseInterface</Filter>
+    </ClInclude>
+    <ClInclude Include="testSetGetAttribute.h">
+      <Filter>Unit_Tests_Source_Files\testSetGetAttribute</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

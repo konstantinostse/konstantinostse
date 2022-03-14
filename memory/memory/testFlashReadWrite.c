@@ -3,7 +3,7 @@
 *        Test Database interface.
 */
 
-#include "DBInterface.h"
+#include "databaseInterface.h"
 #include "databaseTestHelper.h"
 #include <malloc.h>
 #include <stdio.h>
@@ -100,9 +100,9 @@ void testFlashReadWrite()
 {
     setupTest();
         
-    readDatabaseAttribute(attS00_t, att00Data);
+    //readDatabaseAttribute(attS00_t, att00Data);
     printf(" ### ------------------------------- Test Point 1 -------------------------------------- ###\n");
-    readDatabaseAttribute(attS05_t, att05Data);
+    //readDatabaseAttribute(attS05_t, att05Data);
     printf(" ### ------------------------------- Test Point 2 -------------------------------------- ###\n");
     
 
@@ -117,7 +117,7 @@ void testFlashReadWrite()
     //gpNvm_getAttribute(att0, &(attS00_t->length), attS00_t->data);
     //writeDatabaseAttribute(attS00_t, 0);
     gpNvm_setAttribute(0, 4, (UInt8_t*)(attS00_t->data));
-    readDatabaseAttribute(attS00_t, 0);
+    //readDatabaseAttribute(attS00_t, 0);
     
     //UInt8_t pLenght = 0;
     //gpNvm_getAttribute(3, &pLenght, NULL);

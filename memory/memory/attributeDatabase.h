@@ -22,10 +22,10 @@ extern bool isDatabaseLoadedInNvm;
 /* Flag to check if database is loaded in Heap */
 extern bool isDatabaseLoadedInHeap;
 
-/* Flag to check if database is loading from Heap to Nvm or the opposite */
+/* Flag to check if database is being loaded from Heap to Nvm or the opposite */
 extern bool isDatabaseLoadingInProgress;
 
-/* Double Pointer for loading all the database localy to RAM from the NVM */
+/* Double Pointer for loading all the database to Heap from the NVM */
 extern attUIntX_t** attUIntX_inst;
 
 /* Database size in Attributes*/

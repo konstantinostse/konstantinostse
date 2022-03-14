@@ -14,7 +14,7 @@
 #include <malloc.h>
 #include "databaseTestHelper.h"
 #include "attributeDatabase.h"
-#include "DBInterface.h"
+#include "databaseInterface.h"
 #include "debugFunctions.h"
 
  /* Enable debug option for the databaseTestHelper.c.*/
@@ -24,7 +24,7 @@
 
 
  /*
-   Attributes for database  to load localy in RAM for testing
+   Attributes for database  to load localy in Stack for testing
  */
 
  /* Attribute data to load localy in RAM for testing */
@@ -35,7 +35,7 @@ static UInt32_t att03_data[5] = { 0xE5DD1112,0x65EF3417,0x89AD5419,0x22BB2320,0x
 static UInt32_t att04_data[5] = { 0xE5DD1112,0x65EF3417,0x89AD5419,0x22BB2320,0x31AA9865 };
 static UInt16_t att05_data[7] = { 0x1112,0x3417,0x5419,0x2320,0x9865,0x3333,0x4444 };
 
-/* Database ( Array with attributes) to load localy in RAM for testing */
+/* Database ( Array with attributes) to load localy in Stack for testing */
 attUIntXdb_t attArray[DATABASE_SIZE] = {
                                         { 0, 2, 4,  att00_data, 0},
                                         { 1, 8, 5,  att01_data, 0},
@@ -59,7 +59,7 @@ extern UInt8_t        attributeOffsetStack[DATABASE_SIZE] = { 0 };
 /* Database 's lookup table for attributes types */
 extern UInt8_t        attributeTypeStack[DATABASE_SIZE] = { uint8PtrType, uint8PtrType , uint16PtrType , uint32PtrType,uint32PtrType,uint16PtrType };
 
-/** @brief Copy attributes between databases.
+/** @brief Copy attributes from stack database to heap database.
 *  @param targetAttribute  Destination Attribute
 *  @param sourceAttribute  Source Attribute.
 *  @param type Type of the attribute's data.
@@ -172,8 +172,20 @@ int  loadDatabaseInHeapFromStack()
     }
 
     attributeSize = (UInt32_t*)malloc(DATABASE_SIZE * sizeof(UInt32_t));
+    if (NULL == attributeSize )
+    {
+        return -1;
+    }
     attributeOffset = (UInt8_t*)malloc(DATABASE_SIZE * sizeof(UInt8_t));
-    attributeType = (UInt8_t*)malloc(DATABASE_SIZE * sizeof(UInt8_t));    
+    if (NULL == attributeOffset)
+    {
+        return -1;
+    }
+    attributeType = (UInt8_t*)malloc(DATABASE_SIZE * sizeof(UInt8_t));
+    if (NULL == attributeType)
+    {
+        return -1;
+    }
 
     for (int i = 0; i < DATABASE_SIZE; i++)
     {

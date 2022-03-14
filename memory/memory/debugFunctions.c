@@ -8,6 +8,9 @@
 #include <string.h>
 #include "attributes.h"
 
+ /* Enable debug option for the debugFunctions.c.*/
+#define _ENABLE_DEBUG_
+
  /** @brief Print the content of an void array(data)
  *          with size lengthe.
  *  @param data Pointer to void type for the array.
@@ -15,7 +18,8 @@
  *  @return void.
  */
 void printData( void* data, UInt8_t length, UInt8_t dataType)
-{    
+{   
+#ifdef _ENABLE_DEBUG_
     printf(" data = ");
     if ( uint8PtrType == dataType )
     {
@@ -49,4 +53,8 @@ void printData( void* data, UInt8_t length, UInt8_t dataType)
         return;
     }    
     printf(" \n");
+#else
+    (void)length;
+    (void)dataType;
+#endif
 }

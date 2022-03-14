@@ -16,10 +16,10 @@ bool isDatabaseLoadedInHeap = false;
 /* Flag to check if database is loaded in NVM */
 bool isDatabaseLoadedInNvm = false;
 
-/* Flag to check if database is loading from Heap to Nvm or the opposite */
+/* Flag to check if database is being loaded from Heap to Nvm or the opposite */
 bool isDatabaseLoadingInProgress = false;
 
-/* Double Pointer for loading all the database localy to RAM ( Heap) */
+/* Double Pointer for loading all the database to Heap */
 attUIntX_t** attUIntX_inst = NULL;
 
 /* Database size in Attributes */

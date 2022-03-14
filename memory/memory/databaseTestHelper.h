@@ -21,7 +21,7 @@
 #define DATABASE_SIZE 6
 
 
-/* Database 's structure type definition for loading database localy in RAM for testing */
+/* Database 's structure type definition for loading database in the Stack for testing */
 typedef struct attUIntXdb
 {
     gpNvm_AttrId id;
@@ -31,7 +31,7 @@ typedef struct attUIntXdb
     UInt32_t     crc;
 }attUIntXdb_t;
 
-/* Database to load localy in RAM for testing */
+/* Database to load localy in the Stack for testing */
 extern attUIntXdb_t attArray[DATABASE_SIZE];
 
 /*Flag to check if database for testing  is loaded localy in the Stack */

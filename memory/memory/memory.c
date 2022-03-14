@@ -51,13 +51,12 @@
 */
 
 
-//#include <iostream>
 #include <string.h>
 #include <malloc.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <limits.h>
-#include "DBInterface.h"
+#include "databaseInterface.h"
 
 #define ENABLE_UNIT_TEST
 

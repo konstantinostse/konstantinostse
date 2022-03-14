@@ -19,9 +19,6 @@
     <Filter Include="Source Files\attributeDatabase">
       <UniqueIdentifier>{ebb20329-b18b-4cae-8a7b-cda2dc858db5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\DBInterface">
-      <UniqueIdentifier>{4f0227d2-2cfd-44ff-8123-c6fada805e7d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Unit_Tests_Source_Files">
       <UniqueIdentifier>{4c495405-e74b-4d05-8d5a-9c8840b3dfed}</UniqueIdentifier>
     </Filter>
@@ -43,11 +40,11 @@
     <Filter Include="Source Files\databaseTestHelper">
       <UniqueIdentifier>{6bce7cb1-61d3-4ba8-8e51-f891c5f63322}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\databaseInterface">
+      <UniqueIdentifier>{4f0227d2-2cfd-44ff-8123-c6fada805e7d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="DBInterface.c">
-      <Filter>Source Files\DBInterface</Filter>
-    </ClCompile>
     <ClCompile Include="crcCheck.c">
       <Filter>Source Files\crcCheck</Filter>
     </ClCompile>
@@ -75,6 +72,9 @@
     <ClCompile Include="databaseTestHelper.c">
       <Filter>Source Files\databaseTestHelper</Filter>
     </ClCompile>
+    <ClCompile Include="databaseInterface.c">
+      <Filter>Source Files\databaseInterface</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="nvmDriver.h">
@@ -82,9 +82,6 @@
     </ClInclude>
     <ClInclude Include="attributeDatabase.h">
       <Filter>Source Files\attributeDatabase</Filter>
-    </ClInclude>
-    <ClInclude Include="DBInterface.h">
-      <Filter>Source Files\DBInterface</Filter>
     </ClInclude>
     <ClInclude Include="attributes.h">
       <Filter>Source Files</Filter>
@@ -109,6 +106,9 @@
     </ClInclude>
     <ClInclude Include="databaseTestHelper.h">
       <Filter>Source Files\databaseTestHelper</Filter>
+    </ClInclude>
+    <ClInclude Include="databaseInterface.h">
+      <Filter>Source Files\databaseInterface</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

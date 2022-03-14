@@ -147,7 +147,7 @@
       <LanguageStandard_C Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">stdc17</LanguageStandard_C>
     </ClCompile>
     <ClCompile Include="databaseTestHelper.c" />
-    <ClCompile Include="DBInterface.c" />
+    <ClCompile Include="databaseInterface.c" />
     <ClCompile Include="debugFunctions.c" />
     <ClCompile Include="memory.c" />
     <ClCompile Include="nvmDriver.c" />
@@ -161,7 +161,7 @@
     <ClInclude Include="bitwise.h" />
     <ClInclude Include="crcCheck.h" />
     <ClInclude Include="databaseTestHelper.h" />
-    <ClInclude Include="DBInterface.h" />
+    <ClInclude Include="databaseInterface.h" />
     <ClInclude Include="debugFunctions.h" />
     <ClInclude Include="nvmDriver.h" />
     <ClInclude Include="testBitwise.h" />

@@ -25,9 +25,6 @@ attUIntX_t** attUIntX_inst = NULL;
 /* Database size in Attributes */
 UInt32_t databaseSize = 0;
 
-/* Database attribute maximum data lenght in bytes. */
-const UInt32_t attributeMaximumDataLength = 512;
-
 /*
     Database 's lookup tables
 */

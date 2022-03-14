@@ -16,6 +16,9 @@
 
 #define DATABASE_SIZE 6
 
+/* Database attribute maximum data lenght is 512 bytes. */
+#define ATTRIBUTE_MAXIMUM_DATA_LENGHT 512 
+
 /* Flag to check if database is loaded in Ram */
 extern bool isDatabaseLoadedInNvm;
 
@@ -30,9 +33,6 @@ extern attUIntX_t** attUIntX_inst;
 
 /* Database size in Attributes*/
 extern UInt32_t databaseSize;
-
-/* Database attribute maximum data lenght is 512 bytes. */
-extern const UInt32_t attributeMaximumDataLength;
 
 /*
     Database 's lookup tables

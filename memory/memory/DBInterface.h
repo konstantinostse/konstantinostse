@@ -26,6 +26,11 @@ int unloadDatabaseFromHeap();
 */
 int writeDatabaseFromHeapToNvm();
 
+/** @brief Read Database from the NVM to Heap memory (attUIntX_t)
+*  @return 0 for Success and -1 for failure.
+*/
+int readDatabaseFromNvmToHeap();
+
 /** @brief Read an attribute from the NVM.
  *         In order to use this function the database 
  *         should be loaded both in NVM ( writeDatabaseToNvm() )

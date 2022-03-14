@@ -32,7 +32,7 @@ void printData( void* data, UInt8_t length, UInt8_t dataType)
         UInt16_t* dataLocal = (UInt16_t*)data;
         for (int i = 0; i < length; i++)
         {
-            printf(" 0x%.2x , ", dataLocal[i]);
+            printf(" 0x%.4x , ", dataLocal[i]);
         }
     }
     else if (uint32PtrType == dataType)
@@ -41,7 +41,7 @@ void printData( void* data, UInt8_t length, UInt8_t dataType)
         UInt32_t* dataLocal = (UInt32_t*)data;
         for (int i = 0; i < length; i++)
         {
-            printf(" 0x%.2x , ", dataLocal[i]);
+            printf(" 0x%.8x , ", dataLocal[i]);
         }
     }
     else

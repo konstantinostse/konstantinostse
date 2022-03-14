@@ -45,6 +45,20 @@ attUIntXdb_t attArray[DATABASE_SIZE] = {
                                         { 5, 3, 7,  att05_data, 0}
 };
 
+/* Flag to check if database for testing  is loaded in the Stack */
+bool isDatabaseLoadedInStack = false;
+
+/*
+    Database 's lookup tables for Stack memory
+*/
+
+/* Database 's lookup table for attributes size */
+extern UInt32_t        attributeSizeStack[DATABASE_SIZE] = { 0 };
+/* Database 's lookup table for attributes byte offset in memory */
+extern UInt8_t        attributeOffsetStack[DATABASE_SIZE] = { 0 };
+/* Database 's lookup table for attributes types */
+extern UInt8_t        attributeTypeStack[DATABASE_SIZE] = { uint8PtrType, uint8PtrType , uint16PtrType , uint32PtrType,uint32PtrType,uint16PtrType };
+
 /** @brief Copy attributes between databases.
 *  @param targetAttribute  Destination Attribute
 *  @param sourceAttribute  Source Attribute.
@@ -54,96 +68,113 @@ attUIntXdb_t attArray[DATABASE_SIZE] = {
 */
 static int copyDatabaseEntries(attUIntX_t* targetAttribute, attUIntXdb_t* sourceAttribute, UInt8_t type, UInt32_t* entrySize)
 {
-
-    switch (type)
+    if ((true == isDatabaseLoadedInStack) && (NULL != attUIntX_inst))
     {
-    case uint8PtrType:
-        targetAttribute->id = sourceAttribute->id;
-        targetAttribute->option = sourceAttribute->option;
-        targetAttribute->length = sourceAttribute->length;
-        targetAttribute->data = (UInt8_t*)malloc(sourceAttribute->length * sizeof(UInt8_t));
-        if (targetAttribute->data == NULL)
+        switch (type)
         {
-            return -1;
-        }
-        memcpy(targetAttribute->data, sourceAttribute->data, sourceAttribute->length);
-        targetAttribute->crc = (UInt8_t*)malloc(sizeof(UInt8_t));
-        if (targetAttribute->crc == NULL)
-        {
-            return -1;
-        }
-        *((UInt8_t*)(targetAttribute->crc)) = (UInt8_t)(sourceAttribute->crc);        
+        case uint8PtrType:
+            targetAttribute->id = sourceAttribute->id;
+            targetAttribute->option = sourceAttribute->option;
+            targetAttribute->length = sourceAttribute->length;
+            targetAttribute->data = (UInt8_t*)malloc(sourceAttribute->length * sizeof(UInt8_t));
+            if (targetAttribute->data == NULL)
+            {
+                return -1;
+            }
+            memcpy(targetAttribute->data, sourceAttribute->data, sourceAttribute->length);
+            targetAttribute->crc = (UInt8_t*)malloc(sizeof(UInt8_t));
+            if (targetAttribute->crc == NULL)
+            {
+                return -1;
+            }
+            *((UInt8_t*)(targetAttribute->crc)) = (UInt8_t)(sourceAttribute->crc);
 
-        /*Estimates attribute's size in bytes and updates  lookup table attributeSize[DATABASE_SIZE]*/
-        *entrySize = sizeof(gpNvm_AttrId) + sizeof(UInt32_t) + sizeof(UInt8_t) + targetAttribute->length * sizeof(UInt8_t) + sizeof(UInt8_t);
+            /*Estimates attribute's size in bytes and updates  lookup table attributeSize[DATABASE_SIZE]*/
+            *entrySize = sizeof(gpNvm_AttrId) + sizeof(UInt32_t) + sizeof(UInt8_t) + targetAttribute->length * sizeof(UInt8_t) + sizeof(UInt8_t);
 #ifdef _ENABLE_DEBUG_
-        printData((UInt8_t*)(targetAttribute->data), targetAttribute->length, uint8PtrType);
+            printData((UInt8_t*)(targetAttribute->data), targetAttribute->length, uint8PtrType);
 #endif
-        break;
+            break;
 
-    case uint16PtrType:
-        targetAttribute->id = sourceAttribute->id;
-        targetAttribute->option = sourceAttribute->option;
-        targetAttribute->length = sourceAttribute->length;
-        targetAttribute->data = (UInt16_t*)malloc(sourceAttribute->length * sizeof(UInt16_t));
-        if (targetAttribute->data == NULL)
-        {
-            return -1;
-        }
-        memcpy(targetAttribute->data, sourceAttribute->data, sourceAttribute->length * sizeof(UInt16_t));
-        targetAttribute->crc = (UInt16_t*)malloc(sizeof(UInt16_t));
-        if (targetAttribute->crc == NULL)
-        {
-            return -1;
-        }
-        *((UInt16_t*)(targetAttribute->crc)) = (UInt16_t)sourceAttribute->crc;        
+        case uint16PtrType:
+            targetAttribute->id = sourceAttribute->id;
+            targetAttribute->option = sourceAttribute->option;
+            targetAttribute->length = sourceAttribute->length;
+            targetAttribute->data = (UInt16_t*)malloc(sourceAttribute->length * sizeof(UInt16_t));
+            if (targetAttribute->data == NULL)
+            {
+                return -1;
+            }
+            memcpy(targetAttribute->data, sourceAttribute->data, sourceAttribute->length * sizeof(UInt16_t));
+            targetAttribute->crc = (UInt16_t*)malloc(sizeof(UInt16_t));
+            if (targetAttribute->crc == NULL)
+            {
+                return -1;
+            }
+            *((UInt16_t*)(targetAttribute->crc)) = (UInt16_t)sourceAttribute->crc;
 
-        /*Estimates attribute's size in bytes and updates  lookup table attributeSize[DATABASE_SIZE]*/
-        *entrySize = sizeof(gpNvm_AttrId) + sizeof(UInt32_t) + sizeof(UInt8_t) + targetAttribute->length * sizeof(UInt16_t) + sizeof(UInt16_t);
+            /*Estimates attribute's size in bytes and updates  lookup table attributeSize[DATABASE_SIZE]*/
+            *entrySize = sizeof(gpNvm_AttrId) + sizeof(UInt32_t) + sizeof(UInt8_t) + targetAttribute->length * sizeof(UInt16_t) + sizeof(UInt16_t);
 #ifdef _ENABLE_DEBUG_
-        printData((UInt16_t*)(targetAttribute->data), targetAttribute->length, uint16PtrType);
+            printData((UInt16_t*)(targetAttribute->data), targetAttribute->length, uint16PtrType);
 #endif
-        break;
+            break;
 
-    case uint32PtrType:
-        targetAttribute->id = sourceAttribute->id;
-        targetAttribute->option = sourceAttribute->option;
-        targetAttribute->length = sourceAttribute->length;
-        targetAttribute->data = (UInt32_t*)malloc(sourceAttribute->length * sizeof(UInt32_t));
-        if (targetAttribute->data == NULL)
-        {
-            return -1;
-        }
-        memcpy(targetAttribute->data, sourceAttribute->data, sourceAttribute->length * sizeof(UInt32_t));
-        targetAttribute->crc = (UInt32_t*)malloc(sizeof(UInt32_t));
-        if (targetAttribute->crc == NULL)
-        {
-            return -1;
-        }
-        *((UInt32_t*)(targetAttribute->crc)) = (UInt32_t)sourceAttribute->crc;
+        case uint32PtrType:
+            targetAttribute->id = sourceAttribute->id;
+            targetAttribute->option = sourceAttribute->option;
+            targetAttribute->length = sourceAttribute->length;
+            targetAttribute->data = (UInt32_t*)malloc(sourceAttribute->length * sizeof(UInt32_t));
+            if (targetAttribute->data == NULL)
+            {
+                return -1;
+            }
+            memcpy(targetAttribute->data, sourceAttribute->data, sourceAttribute->length * sizeof(UInt32_t));
+            targetAttribute->crc = (UInt32_t*)malloc(sizeof(UInt32_t));
+            if (targetAttribute->crc == NULL)
+            {
+                return -1;
+            }
+            *((UInt32_t*)(targetAttribute->crc)) = (UInt32_t)sourceAttribute->crc;
 
-        /*Estimates attribute's size in bytes and updates  lookup table attributeSize[DATABASE_SIZE]*/
-        *entrySize = sizeof(gpNvm_AttrId) + sizeof(UInt32_t) + sizeof(UInt8_t) + targetAttribute->length * sizeof(UInt32_t) + sizeof(UInt32_t);
+            /*Estimates attribute's size in bytes and updates  lookup table attributeSize[DATABASE_SIZE]*/
+            *entrySize = sizeof(gpNvm_AttrId) + sizeof(UInt32_t) + sizeof(UInt8_t) + targetAttribute->length * sizeof(UInt32_t) + sizeof(UInt32_t);
 #ifdef _ENABLE_DEBUG_
-        printData((UInt32_t*)(targetAttribute->data), targetAttribute->length, uint32PtrType);
+            printData((UInt32_t*)(targetAttribute->data), targetAttribute->length, uint32PtrType);
 #endif
-        break;
-    default:
-        /* Invalid Data type */
-        return -1;
-        break;
+            break;
+        default:
+            /* Invalid Data type */
+            return -1;
+            break;
+        }
+
+        return 0;
     }
-
-    return 0;
+    else
+    {
+        /* Attribute database is not loaded in the Stack and Heap.
+        *  No database in Heap and Stack to read!
+        */
+        return -1;
+    }
 }
 
 int  loadDatabaseInHeapFromStack()
 {
+    /* Attributes Database is loaded in Stack. */
+    isDatabaseLoadedInStack = true;
+
     attUIntX_inst = (attUIntX_t**)malloc(DATABASE_SIZE * sizeof(attUIntX_t*));
     if (attUIntX_inst == NULL)
     {
         return -1;
     }
+
+    attributeSize = (UInt32_t*)malloc(DATABASE_SIZE * sizeof(UInt32_t));
+    attributeOffset = (UInt8_t*)malloc(DATABASE_SIZE * sizeof(UInt8_t));
+    attributeType = (UInt8_t*)malloc(DATABASE_SIZE * sizeof(UInt8_t));    
+
     for (int i = 0; i < DATABASE_SIZE; i++)
     {
         attUIntX_inst[i] = (attUIntX_t*)malloc(sizeof(attUIntX_t));
@@ -153,18 +184,25 @@ int  loadDatabaseInHeapFromStack()
         }
         if (i > 0)
         {
-            attributeOffset[i] = attributeOffset[i - 1] + attributeSize[i - 1];
-        }
-        if (-1 == copyDatabaseEntries(attUIntX_inst[i], (attArray + i), attributeType[i], attributeSize + i))
+            attributeOffsetStack[i] = attributeOffsetStack[i - 1] + attributeSizeStack[i - 1];
+        }        
+        if (-1 == copyDatabaseEntries(attUIntX_inst[i], (attArray + i), attributeTypeStack[i], attributeSizeStack + i))
         {
             free(attUIntX_inst[i]);
             attUIntX_inst[i] = NULL;
             return -1;
         }
+
+        attributeType[i]   = attributeTypeStack[i];
+        attributeSize[i]   = attributeSizeStack[i];
+        attributeOffset[i] = attributeOffsetStack[i];
     }
 
-    /* Attributes Database is loaded in Ram. */
-    isDatabaseLoadedInRam = true;
+    /* Update global variable for the database size  for the NVM */
+    databaseSize = DATABASE_SIZE;
+    
+    /* Attributes Database is loaded in Heap. */
+    isDatabaseLoadedInHeap = true;
 
     /* Succes to load the database in Ram!*/
     return 0;

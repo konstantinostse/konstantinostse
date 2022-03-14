@@ -25,6 +25,7 @@ enum attID
 
 static void setupTest()
 {
+#if 0
     /* This gets run before every test.*/
     if (-1 == loadDatabaseInHeapFromStack())
     {
@@ -38,6 +39,14 @@ static void setupTest()
         return;
     }
 
+#else
+    isDatabaseLoadedInNvm = true;
+    if (-1 == readDatabaseFromNvmToHeap())
+    {
+        printf(" Cannot read database from Nvm \n");
+        return;
+    }
+#endif
     /* Initialise Testing attributes */
     attS00_t = (attUIntX_t*)malloc(sizeof(attUIntX_t));
     if (attS00_t == NULL)
@@ -89,7 +98,7 @@ static void teardownTest()
 
 void testFlashReadWrite()
 {
-    setupTest();    
+    setupTest();
         
     readDatabaseAttribute(attS00_t, att00Data);
     printf(" ### ------------------------------- Test Point 1 -------------------------------------- ###\n");
@@ -101,7 +110,7 @@ void testFlashReadWrite()
     *((UInt8_t*)(attS00_t->data) + 0) = 0xa;
     *((UInt8_t*)(attS00_t->data) + 1) = 0xb;
     *((UInt8_t*)(attS00_t->data) + 2) = 0xc;
-    *((UInt8_t*)(attS00_t->data) + 3) = 0xd;    
+    *((UInt8_t*)(attS00_t->data) + 3) = 0xd;
     attS00_t->length = 4;
 
     //gpNvm_setAttribute(att0, &(attS00_t->length), attS00_t->data);

@@ -34,6 +34,21 @@ typedef struct attUIntXdb
 /* Database to load localy in RAM for testing */
 extern attUIntXdb_t attArray[DATABASE_SIZE];
 
+/*Flag to check if database for testing  is loaded localy in the Stack */
+extern bool isDatabaseLoadedInStack;
+
+/*
+    Database 's lookup tables for Stack memory
+*/
+
+/* Database 's lookup table for attributes size */
+extern UInt32_t       attributeSizeStack[DATABASE_SIZE];
+/* Database 's lookup table for attributes byte offset in memory */
+extern UInt8_t        attributeOffsetStack[DATABASE_SIZE];
+/* Database 's lookup table for attributes types */
+extern UInt8_t        attributeTypeStack[DATABASE_SIZE];
+
+
 /** @brief Load to the heap (attUIntX_inst)
  *         all the attribute from the attArray[].
  *         This function allocate resources

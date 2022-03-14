@@ -31,7 +31,7 @@ int unloadDatabaseFromHeap()
     /* Is Attribute database loaded in Heap? */
     if ((true == isDatabaseLoadedInHeap) && (databaseSize > 0) )
     {
-        for (int i = 0; i < databaseSize; i++)
+        for (UInt32_t i = 0; i < databaseSize; i++)
         {
             free(attUIntX_inst[i]->crc);
             attUIntX_inst[i]->crc = NULL;
@@ -63,7 +63,7 @@ int writeDatabaseFromHeapToNvm()
     if ( ( true == isDatabaseLoadedInHeap) && (databaseSize > 0) )
     {
         /* Database elements offset in bytes.*/
-        UInt16_t offset = 0;
+        UInt32_t offset = 0;
 
         if (-1 == writeNvm( &databaseSize, offset, sizeof(UInt32_t)))
         {
@@ -102,7 +102,7 @@ int writeDatabaseFromHeapToNvm()
         /* Set the global variable for the offset for the first attribute in the database */
         firstAttributeOffset = offset;
 
-        for (int i = 0; i < databaseSize; i++)
+        for (UInt32_t i = 0; i < databaseSize; i++)
         {
             if (-1 == writeDatabaseAttribute( attUIntX_inst[i], i) )
             {
@@ -136,7 +136,7 @@ int readDatabaseFromNvmToHeap()
         /* No Database loaded in Heap but it is loaded in the nvm.*/
         databaseSize = 0;
         /* Database elements offset in bytes.*/
-        UInt16_t offset = 0;
+        UInt32_t offset = 0;
 
         if (-1 == readNvm(&databaseSize, offset, sizeof( UInt32_t )) )
         {
@@ -268,6 +268,10 @@ int readDatabaseFromNvmToHeap()
 
 gpNvm_Result gpNvm_setAttribute(gpNvm_AttrId attrId, UInt8_t pLenght, void* pValue)
 {    
+    if (NULL == pValue)
+    {
+        return -1;
+    }
     /* Is Attribute database loaded in the Nvm ? */
     if (( true == isDatabaseLoadedInNvm) && ( true == isDatabaseLoadedInHeap))
     {
@@ -385,6 +389,11 @@ gpNvm_Result gpNvm_setAttribute(gpNvm_AttrId attrId, UInt8_t pLenght, void* pVal
 
 gpNvm_Result gpNvm_getAttribute(gpNvm_AttrId attrId, UInt8_t* pLenght, void* pValue)
 {
+    if (NULL == pValue)
+    {
+        return -1;
+    }
+
     /* Is Attribute database loaded in the Nvm  and Heap ? */
     if ((true == isDatabaseLoadedInNvm) && (true == isDatabaseLoadedInHeap))
     { 
@@ -444,6 +453,13 @@ static int writeDatabaseAttribute(attUIntX_t* const attribute , UInt8_t attribut
     {
         attUIntX_t* attributeLocal = attribute;
         UInt16_t offset = 0;
+
+        if (attributeLocal->length > attributeMaximumDataLength)
+        {
+            /* Attribute data length is greater than 512 bytes */
+            assert( attributeLocal->length <= attributeMaximumDataLength );
+            return -1;
+        }
 
         UInt8_t* buffer = (UInt8_t*)malloc(attributeSize[attributeNum] * sizeof(UInt8_t));
         if (buffer == NULL)

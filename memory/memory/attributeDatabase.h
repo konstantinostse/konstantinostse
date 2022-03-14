@@ -30,16 +30,23 @@ extern attUIntX_t** attUIntX_inst;
 
 /* Database size in Attributes*/
 extern UInt32_t databaseSize;
+
+/* Database attribute maximum data lenght is 512 bytes. */
+extern const UInt32_t attributeMaximumDataLength;
+
 /*
     Database 's lookup tables
 */
 
 /* Dynamic Database 's lookup table for attributes size */
 extern UInt32_t*        attributeSize;
+
 /* Dynamic Database 's lookup table for attributes byte offset in memory */
 extern UInt8_t*        attributeOffset;
+
 /* Dynamic Database 's lookup table for attributes types */
 extern UInt8_t*      attributeType;
+
 /* Offset for the first attribute in the database */
 extern UInt16_t firstAttributeOffset;
 #endif /* ATTRIBUTE_DATABASE */

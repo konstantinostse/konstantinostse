@@ -187,7 +187,7 @@ int  loadDatabaseInHeapFromStack()
         return -1;
     }
 
-    for (int i = 0; i < DATABASE_SIZE; i++)
+    for (UInt32_t i = 0; i < DATABASE_SIZE; i++)
     {
         attUIntX_inst[i] = (attUIntX_t*)malloc(sizeof(attUIntX_t));
         if (attUIntX_inst[i] == NULL)

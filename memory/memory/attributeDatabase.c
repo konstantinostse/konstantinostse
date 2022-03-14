@@ -25,16 +25,22 @@ attUIntX_t** attUIntX_inst = NULL;
 /* Database size in Attributes */
 UInt32_t databaseSize = 0;
 
+/* Database attribute maximum data lenght in bytes. */
+const UInt32_t attributeMaximumDataLength = 512;
+
 /*
     Database 's lookup tables
 */
 
 /* Dyanmic Database lookup table for attributes size */
 UInt32_t*    attributeSize = NULL;
+
 /* Dynamic Database lookup table for attributes byte offset in memory */
 UInt8_t*     attributeOffset = NULL;
+
 /* Dynamic Database lookup table for attributes types */
 UInt8_t*     attributeType = NULL;
+
 /* Offset for the first attribute in the database */
 UInt16_t firstAttributeOffset = 0;;
 

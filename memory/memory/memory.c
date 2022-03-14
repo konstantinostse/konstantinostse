@@ -32,7 +32,7 @@
 *        UInt8 data[MAX_LENGTH];
 *    } gpTestData_t;
 *
-*
+*    • Maximum attribute data lenght is 512 bytes.
 *    • Extend the your solution with an unit test.
 */
 

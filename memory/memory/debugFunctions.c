@@ -25,7 +25,7 @@ void printData( void* data, UInt8_t length, UInt8_t dataType)
     {
         printf(" ---------------UInt8_t--------------------- \n");
         UInt8_t* dataLocal = (UInt8_t*)data;
-        for (int i = 0; i < length; i++)
+        for (UInt32_t i = 0; i < length; i++)
         {
             printf(" 0x%.2x , ", dataLocal[i]);
         }
@@ -34,7 +34,7 @@ void printData( void* data, UInt8_t length, UInt8_t dataType)
     {
         printf(" ---------------UInt16_t--------------------- \n");
         UInt16_t* dataLocal = (UInt16_t*)data;
-        for (int i = 0; i < length; i++)
+        for (UInt32_t i = 0; i < length; i++)
         {
             printf(" 0x%.4x , ", dataLocal[i]);
         }
@@ -43,7 +43,7 @@ void printData( void* data, UInt8_t length, UInt8_t dataType)
     {
         printf(" ---------------UInt32_t--------------------- \n");
         UInt32_t* dataLocal = (UInt32_t*)data;
-        for (int i = 0; i < length; i++)
+        for (UInt32_t i = 0; i < length; i++)
         {
             printf(" 0x%.8x , ", dataLocal[i]);
         }

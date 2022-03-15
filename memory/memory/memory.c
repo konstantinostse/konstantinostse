@@ -1,5 +1,5 @@
-/* memory.cpp */
-//
+/* memory.c */
+
 /**
  *   Requirements and Specifications. 
  *
@@ -56,7 +56,7 @@
  *   The heap database utilizes three look up tables attributeSize, attributeOffset and attributeType. attributeSize  has stored the size 
  *   for each attribute in the heap database. attributeOffset has stored the offset for each attribute in the heap database. attributeType has stored
  *   the data type for each attribute in the heap database. The look up tables are utilized for quick access in the heap database.
- *   The address size for the nvm memory is 32 bits. The nvm memory has storage 1 Mbyte and the rage of the address is .
+ *   The address size for the nvm memory is 32 bits. 
  *   The code is executed through the unit tests testSetGetAttribute and testFlashReadWrite.
  *
  *   Nvm attribute Database structure
@@ -93,10 +93,9 @@
  *   |
  *   Unit_Tests_Source_Files
  *   |
- *   |______testSetGetAttribute Test gpNvm_setAttribute()/gpNvm_getAttribute() functions.
- *   |
- *   |______testFlashReadWrite  Test nvm driver and read/write database to nvm.
+ *   |______testSetGetAttribute Test gpNvm_setAttribute() gpNvm_getAttribute() functions. 
  *
+ *   
  *
  */
 
@@ -111,9 +110,6 @@
 
 #ifdef ENABLE_UNIT_TEST
 
-#include "testFlashReadWrite.h"
-#include "testCrcCheck.h"
-#include "testBitwise.h"
 #include "testSetGetAttribute.h"
 
 #endif /* ENABLE_UNIT_TEST */
@@ -121,9 +117,5 @@
 int main()
 {
     testSetGetAttribute();
-    //testFlashReadWrite();
-    //testCrcCheck();
-    //testBitwise();
-
     return 0;
 }

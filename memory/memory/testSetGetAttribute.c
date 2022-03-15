@@ -7,10 +7,11 @@
 *          This test read attributes data from the nvm database and writes attributes data in the nvm database.
 *          It tests the function gpNvm_getAttribute() and function gpNvm_setAttribute(). The crc is used for the check.
 */
-
+#include "debugFunctions.h"
 #include "databaseInterface.h"
 #include "databaseTestHelper.h"
 #include <malloc.h>
+#include <string.h>
 #include <stdio.h>
 
 

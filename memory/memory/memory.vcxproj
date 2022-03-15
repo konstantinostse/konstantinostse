@@ -151,23 +151,17 @@
     <ClCompile Include="debugFunctions.c" />
     <ClCompile Include="memory.c" />
     <ClCompile Include="nvmDriver.c" />
-    <ClCompile Include="testBitwise.c" />
-    <ClCompile Include="testCrcCheck.c" />
-    <ClCompile Include="testFlashReadWrite.c" />
     <ClCompile Include="testSetGetAttribute.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="attributeDatabase.h" />
     <ClInclude Include="attributes.h" />
-    <ClInclude Include="bitwise.h" />
     <ClInclude Include="crcCheck.h" />
     <ClInclude Include="databaseTestHelper.h" />
     <ClInclude Include="databaseInterface.h" />
     <ClInclude Include="debugFunctions.h" />
     <ClInclude Include="nvmDriver.h" />
-    <ClInclude Include="testBitwise.h" />
-    <ClInclude Include="testCrcCheck.h" />
-    <ClInclude Include="testFlashReadWrite.h" />
+    <ClInclude Include="nvmDriverError.h" />
     <ClInclude Include="testSetGetAttribute.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

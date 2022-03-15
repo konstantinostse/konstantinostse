@@ -75,7 +75,7 @@ int writeDatabaseFromHeapToNvm()
         /* Database elements offset in bytes.*/
         UInt32_t offset = 0;
 
-        if (-1 == writeNvm( &databaseSize, offset, sizeof(UInt32_t)))
+        if ( 0 != writeNvm( &databaseSize, offset, sizeof(UInt32_t)))
         {
             /* NVM write failure! */
             return -1;
@@ -83,7 +83,7 @@ int writeDatabaseFromHeapToNvm()
 
         DEBUG_PRINTF(attributeSize, databaseSize, uint32PtrType);
         offset += sizeof(UInt32_t);
-        if (-1 == writeNvm( attributeSize, offset, databaseSize * sizeof(UInt32_t)))
+        if ( 0 != writeNvm( attributeSize, offset, databaseSize * sizeof(UInt32_t)))
         {
             /* NVM write failure! */
             return -1;
@@ -91,7 +91,7 @@ int writeDatabaseFromHeapToNvm()
 
         DEBUG_PRINTF(attributeOffset, databaseSize, uint8PtrType);
         offset += databaseSize * sizeof(UInt32_t);
-        if (-1 == writeNvm( attributeOffset, offset, databaseSize * sizeof(UInt8_t)))
+        if ( 0 != writeNvm( attributeOffset, offset, databaseSize * sizeof(UInt8_t)))
         {
             /* NVM write failure! */
             return -1;
@@ -99,7 +99,7 @@ int writeDatabaseFromHeapToNvm()
 
         DEBUG_PRINTF(attributeType, databaseSize, uint8PtrType);
         offset += databaseSize * sizeof(UInt8_t);
-        if (-1 == writeNvm( attributeType, offset, databaseSize * sizeof(UInt8_t)))
+        if ( 0 != writeNvm( attributeType, offset, databaseSize * sizeof(UInt8_t)))
         {
             /* NVM write failure! */
             return -1;
@@ -146,7 +146,7 @@ int readDatabaseFromNvmToHeap()
         /* Database elements offset in bytes.*/
         UInt32_t offset = 0;
 
-        if (-1 == readNvm(&databaseSize, offset, sizeof( UInt32_t )) )
+        if (0 != readNvm(&databaseSize, offset, sizeof( UInt32_t )) )
         {
             /* NVM read failure! */
             return -1;
@@ -160,7 +160,7 @@ int readDatabaseFromNvmToHeap()
             {
                 return -1;
             }
-            if (-1 == readNvm(attributeSize, offset, databaseSize * sizeof(UInt32_t)))
+            if (0 != readNvm(attributeSize, offset, databaseSize * sizeof(UInt32_t)))
             {
                 /* NVM read failure! */
                 return -1;
@@ -173,7 +173,7 @@ int readDatabaseFromNvmToHeap()
             {
                 return -1;
             }
-            if (-1 == readNvm(attributeOffset, offset, databaseSize * sizeof(UInt8_t)))
+            if (0 != readNvm(attributeOffset, offset, databaseSize * sizeof(UInt8_t)))
             {
                 /* NVM read failure! */
                 return -1;
@@ -186,7 +186,7 @@ int readDatabaseFromNvmToHeap()
             {
                 return -1;
             }
-            if (-1 == readNvm(attributeType, offset, databaseSize * sizeof(UInt8_t)))
+            if (0 != readNvm(attributeType, offset, databaseSize * sizeof(UInt8_t)))
             {
                 /* NVM read failure! */
                 return -1;
@@ -365,7 +365,7 @@ gpNvm_Result gpNvm_setAttribute(gpNvm_AttrId attrId, UInt8_t pLenght, void* pVal
             assert((offset + dataSize) == attributeSize[attrId]);
 
             DEBUG_PRINTF((UInt8_t*)(buffer), dataSize, uint8PtrType);
-            if (-1 == writeNvm(buffer, firstAttributeOffset+attributeOffset[attrId] + offset, dataSize))
+            if ( 0 != writeNvm(buffer, firstAttributeOffset+attributeOffset[attrId] + offset, dataSize))
             {
                 free(buffer);
                 buffer = NULL;
@@ -518,7 +518,7 @@ static int writeDatabaseAttribute(attUIntX_t* const attribute , UInt8_t attribut
         assert(offset == attributeSize[attributeNum]);
 
         DEBUG_PRINTF((UInt8_t*)(buffer), attributeSize[attributeNum], uint8PtrType);
-        if (-1 == writeNvm(buffer, firstAttributeOffset + attributeOffset[attributeNum], attributeSize[attributeNum]))
+        if ( 0 != writeNvm(buffer, firstAttributeOffset + attributeOffset[attributeNum], attributeSize[attributeNum]))
         {
             free(buffer);
             buffer = NULL;
@@ -567,7 +567,7 @@ static int readDatabaseAttribute(attUIntX_t* const attribute, UInt8_t attributeN
             return -1;
         }
 
-        if (-1 == readNvm(buffer, firstAttributeOffset + attributeOffset[attributeNum], attributeSize[attributeNum]))
+        if (0 != readNvm(buffer, firstAttributeOffset + attributeOffset[attributeNum], attributeSize[attributeNum]))
         {
             free(buffer);
             buffer = NULL;

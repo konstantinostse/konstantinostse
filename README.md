@@ -55,7 +55,7 @@ Heap database is defined by the double pointer  attUIntX_inst  in the  attribute
 For testing purposes the array  attArray (in databaseTestHelper.c ) is defined in order  to initialize the heap database and 
 subsequently the nvm database with values during the tests.  The function loadDatabaseInHeapFromStack () ( file databaseTestHelpr.c)
 loads the database entries (attributes) values from the attArray in the Heap database ( attUIntX_inst ). Subsequently  the writeDatabaseToNvm() 
-loads the Heap database in the NVM. Check unit test testSetGetAttribute.cpp. The nvm database is simulated by the file attDb.bin. Check the example in 
+loads the Heap database in the NVM. Check unit test testSetGetAttribute.c. The nvm database is simulated by the file attDb.bin. Check the example in 
 the Unit test folder testSetGetAttribute in order to initialise the nvm database in the file attDb.bin. 
 In the file databaseInterface.c the readDatabaseFromNvmToHeap() function loads the nvm database in the Heap. Also it creates the database in the 
 heap pointed by the pointer attUIntX_inst. If the database is loaded in the heap from the loadDatabaseInHeapFromStack() you 

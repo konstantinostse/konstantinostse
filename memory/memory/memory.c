@@ -38,31 +38,30 @@
  *
  *   Implementation
  *
- *   The nvm driver writes and reads from a database stored in the non-volatile memory (nvm). A copy of the nvm database 
- *   is stored also in the heap which it is pointed by the pointer attUIntX_inst in the file attributeDatabase.c. Every time 
- *   that the NVM database is updated through the function gpNvm_setAttribute() the database in the Heap is updated also. 
+ *   The nvm driver writes and reads from a database stored in the non-volatile memory (nvm). A copy of the nvm database
+ *   is stored also in the heap which it is pointed by the pointer attUIntX_inst in the file attributeDatabase.c. Every time
+ *   that the NVM database is updated through the function gpNvm_setAttribute() the database in the Heap is updated also.
  *   So the Nvm database is synchronized with the heap database. The purpose of the heap database is for quicker access for reading.
  *   The gpNvm_getAttribute()is for direct reading from the nvm.
- *   Heap database is defined by the double pointer  attUIntX_inst  in the  attributeDatabase.c.
- *   For testing purposes the array  attArray (in databaseTestHelper.c ) is defined in order  to initialize the heap database and 
- *   subsequently the nvm database with values during the tests.  The function loadDatabaseInHeapFromStack () ( file databaseTestHelpr.c)
- *   loads the database entries (attributes) values from the attArray in the Heap database ( attUIntX_inst ). Subsequently  the writeDatabaseToNvm() 
- *   loads the Heap database in the NVM. Check unit test testFlashReadWrite.cpp. The nvm database is simulated by the file attDb.bin. Check the example in 
- *   the Unit test folder testSetGetAttribute in order to initialize the nvm database in the file attDb.bin. 
- *   In the file databaseInterface.c the readDatabaseFromNvmToHeap() function loads the nvm database in the Heap. Also it creates the database in the 
- *   heap pointed by the pointer attUIntX_inst. If the database is loaded in the heap from the loadDatabaseInHeapFromStack() you 
- *   cannot use readDatabaseFromNvmToHeap() or the opposite. Everytime the database is loaded in the heap , in the end you need use to unloadDatabaseFromHeap() 
- *   in order to free the memory in the heap. The heap database resources are defined in the attributeDatabase.h/c
- *   The heap database utilizes three look up tables attributeSize, attributeOffset and attributeType. attributeSize  has stored the size 
- *   for each attribute in the heap database. attributeOffset has stored the offset for each attribute in the heap database. attributeType has stored
- *   the data type for each attribute in the heap database. The look up tables are utilized for quick access in the heap database.
- *   The address size for the nvm memory is 32 bits. 
- *   The code is executed through the unit tests testSetGetAttribute and testFlashReadWrite.
+ *   Heap database is defined by the double pointer attUIntX_inst in the attributeDatabase.c.
+ *   For testing purposes the array attArray (in databaseTestHelper.c ) is defined in order to initialize the heap database and
+ *   subsequently the nvm database with values during the tests. The function loadDatabaseInHeapFromStack() ( file databaseTestHelpr.c)
+ *   loads the database entries (attributes) values from the attArray in the Heap database ( attUIntX_inst ).Subsequently the writeDatabaseToNvm()
+ *   loads the Heap database in the NVM. Check unit test testSetGetAttribute.c. The nvm database is simulated by the file attDb.bin. Check the example in
+ *   the Unit test folder testSetGetAttribute in order to initialise the nvm database in the file attDb.bin.
+ *   In the file databaseInterface.c the readDatabaseFromNvmToHeap() function loads the nvm database in the Heap. Also it creates the database in the
+ *   heap pointed by the pointer attUIntX_inst. If the database is loaded in the heap from the loadDatabaseInHeapFromStack() you
+ *   cannot use readDatabaseFromNvmToHeap() or the opposite. Everytime the database is allocated in the heap , use the unloadDatabaseFromHeap()
+ *   in order to free the memory in the heap. The heap database resources are defined in the attributeDatabase.c.
+ *   The heap database utilises three look up tables. attributeSize, attributeOffset and attributeType. attributeSize stores the size
+ *   for each attribute in the heap database. attributeOffset stores the offset for each attribute in the heap database. attributeType stores
+ *   the data type for each attribute in the heap database. The look up tables are utilised for quick access in the heap database.
+ *   The address size for the nvm memory is 32 bits.
  *
  *   Nvm attribute Database structure
  *
  *   All the elements of the nvm database are defined in the attributeDatabase.c
- *   According the attributeDatabase.c the database nvm storage is with the following order :
+ *   According the attributeDatabase.c the database nvm storage has the following order :
  *
  *   First  element : databaseSize
  *   Second element : attributeSize   look up table

@@ -11,13 +11,17 @@
 #include <stdio.h>
 #include "attributes.h"
 
-
-
-void printData(UInt8_t* data, UInt8_t length);
-
-void printData(UInt16_t* data, UInt8_t length);
-
-void printData(UInt32_t* data, UInt8_t length);
+ /** @brief Print the data for a UInt8_t ,UInt16_t or
+  *         UInt32_t array(data) with size length and return the crc value.
+  *  @param[in]    data      Void pointer to array with the Data.
+  *  @param[in]    length    Size of the array.
+  *  @param[in]    dataType  Data type of the array.
+  *                          uint8PtrType for pointer to UInt8_t.
+  *                          uint16PtrType for pointer to UInt16_t.
+  *                          uint32PtrType for pointer to UInt32_t.
+  *  @return                 crc calculation Status. 0 for success and -1 for failure.
+  */
+void printData(void* data, UInt8_t length, UInt8_t dataType);
 
 #endif /* __DEBUG_FUNCTIONS__ */
 

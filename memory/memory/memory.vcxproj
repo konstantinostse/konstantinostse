@@ -88,6 +88,9 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>Default</LanguageStandard>
+      <LanguageStandard_C>Default</LanguageStandard_C>
+      <CompileAs>CompileAsC</CompileAs>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -139,27 +142,27 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="attributeDatabase.cpp" />
-    <ClCompile Include="crcCheck.cpp" />
-    <ClCompile Include="DBInterface.cpp" />
-    <ClCompile Include="debugFunctions.cpp" />
-    <ClCompile Include="memory.cpp" />
-    <ClCompile Include="nvmDriver.cpp" />
-    <ClCompile Include="testBitwise.cpp" />
-    <ClCompile Include="testCrcCheck.cpp" />
-    <ClCompile Include="testFlashReadWrite.cpp" />
+    <ClCompile Include="attributeDatabase.c" />
+    <ClCompile Include="crcCheck.c">
+      <LanguageStandard_C Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">stdc17</LanguageStandard_C>
+    </ClCompile>
+    <ClCompile Include="databaseTestHelper.c" />
+    <ClCompile Include="databaseInterface.c" />
+    <ClCompile Include="debugFunctions.c" />
+    <ClCompile Include="memory.c" />
+    <ClCompile Include="nvmDriver.c" />
+    <ClCompile Include="testSetGetAttribute.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="attributeDatabase.h" />
     <ClInclude Include="attributes.h" />
-    <ClInclude Include="bitwise.h" />
     <ClInclude Include="crcCheck.h" />
-    <ClInclude Include="DBInterface.h" />
+    <ClInclude Include="databaseTestHelper.h" />
+    <ClInclude Include="databaseInterface.h" />
     <ClInclude Include="debugFunctions.h" />
     <ClInclude Include="nvmDriver.h" />
-    <ClInclude Include="testBitwise.h" />
-    <ClInclude Include="testCrcCheck.h" />
-    <ClInclude Include="testFlashReadWrite.h" />
+    <ClInclude Include="nvmDriverError.h" />
+    <ClInclude Include="testSetGetAttribute.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

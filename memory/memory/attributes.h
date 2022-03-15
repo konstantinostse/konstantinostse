@@ -9,10 +9,10 @@
 
 /* Database 's data types according API specifications */
 enum intType
-{	
-	uint8PtrType  = 0,	
-	uint16PtrType,	
-	uint32PtrType
+{
+    uint8PtrType  = 0,
+    uint16PtrType,
+    uint32PtrType
 };
 
 /* Database 's data types definitions according API specifications */
@@ -23,26 +23,17 @@ typedef unsigned int   UInt32_t;
 typedef UInt8_t gpNvm_AttrId;
 typedef UInt8_t gpNvm_Result;
 
-/* Database 's structure type definition according API specifications */
-/* Structure size offset = sizeof(gpNvm_AttrId)+sizeof(UInt32_t)+sizeof(UInt8_t)+sizeof(intType)
-  + sizeof(data) + sizeof(crc); */
+/* Database 's struct type definition according API specifications */
+/* Struct size offset = sizeof(gpNvm_AttrId)+sizeof(UInt32_t)+sizeof(UInt8_t)+sizeof(intType)
+ * + sizeof(data) + sizeof(crc); 
+ */
 typedef struct attUIntX
-{	
-	gpNvm_AttrId id;
-	UInt32_t     option;
-	UInt8_t		 length;	
-	void*        data;
-	void*        crc;	
-}attUIntX_t;
-
-/* Database 's structure type definition for loading database localy in RAM for testing */
-typedef struct attUIntXdb
 {
-	gpNvm_AttrId id;
-	UInt32_t     option;
-	UInt8_t		 length;
-	void*		 data;
-	UInt32_t	 crc;
-}attUIntXdb_t;
+    gpNvm_AttrId id;
+    UInt32_t     option;
+    UInt8_t      length;
+    void*        data;
+    void*        crc;
+}attUIntX_t;
 
 #endif /* __ATTRIBUTES__ */

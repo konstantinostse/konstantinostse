@@ -69,7 +69,7 @@ The address size for the nvm memory is 32 bits.
 Nvm attribute Database structure
 
 All the elements of the nvm database are defined in the attributeDatabase.c
-According the attributeDatabase.c the database nvm storage is with the following order :
+According the attributeDatabase.c the database nvm storage has the following order :
 ```
 First  element : databaseSize
 Second element : attributeSize   look up table

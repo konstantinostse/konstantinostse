@@ -2,6 +2,8 @@
  *  @brief NVM read/write driver implementation.
  * 
  */
+/* Disable warnings for fopen */
+#define _CRT_SECURE_NO_WARNINGS
 
 #include "nvmDriver.h"
 #include "nvmDriverError.h"
@@ -45,7 +47,7 @@ uint8_t writeNvm( void* const buffer, uint32_t nvmAddress, uint32_t byteSize)
     if ( NULL == ( filePtr = fopen("attDb.bin", "r+")) )
 #endif
     {
-#ifndef __STDC__
+#if defined(__STDC_VERSION__) && ( __STDC_VERSION__ > 199409L)
         fopen_s(&filePtr, "attDb.bin", "w+");
         if (!filePtr)
 #else

@@ -12,7 +12,7 @@
 *
 */
 
-#ifndef __DATABASE_TEST_HELPER__
+#if !defined(__DATABASE_TEST_HELPER__) && !defined(__cplusplus)
 #define __DATABASE_TEST_HELPER__
 
 #include <stdbool.h>

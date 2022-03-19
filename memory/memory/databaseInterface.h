@@ -6,7 +6,7 @@
  * Functions prototypes for interfacing with the Attributes Database. 
  */
 
-#ifndef __NVM_DB_INTERFACE__
+#if !defined(__NVM_DB_INTERFACE__) && !defined(__cplusplus)
 #define __NVM_DB_INTERFACE__
 
 #include "attributeDatabase.h"

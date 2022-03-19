@@ -4,13 +4,13 @@
  *   Requirements and Specifications. 
  *
  *   Implement a non - volatile memory storage component. This component should be able to backup and restore values
- *   corresponding to a unique attribute identifier. For the simplicity of the exercise the underlying non - volatile memory (eeprom, flash, …) can be modelled as a file.
+ *   corresponding to a unique attribute identifier. For the simplicity of the exercise the underlying non - volatile memory (eeprom, flash, ï¿½) can be modelled as a file.
  *
- *   • This Embedded System supports MMU so malloc can be used without fragmentation issues.
+ *   ï¿½ This Embedded System supports MMU so malloc can be used without fragmentation issues.
  *
  *   Component Specification
  *
- *   • Implement the basic implementation of this component based on following API description
+ *   ï¿½ Implement the basic implementation of this component based on following API description
  *
  *   typedef unsigned char UInt8;
  *   typedef UInt8 gpNvm_AttrId;
@@ -19,9 +19,9 @@
  *   gpNvm_Result gpNvm_SetAttribute(gpNvm_AttrId attrId,  UInt8 length,  UInt8* pValue);
  *
  *
- *   • Make sure the implementation supports different datatypes.
+ *   ï¿½ Make sure the implementation supports different datatypes.
  *   Some examples :
- *       o Basic datatypes like UInt8, UInt32, …
+ *       o Basic datatypes like UInt8, UInt32, ï¿½
  *       o An array of UInt8
  *       o Structs like for instance :
  *
@@ -33,8 +33,8 @@
  *       UInt8 data[MAX_LENGTH];
  *   } gpTestData_t;
  *
- *   • Maximum attribute data length is 512 bytes.
- *   • Extend your solution with an unit test.
+ *   ï¿½ Maximum attribute data length is 512 bytes.
+ *   ï¿½ Extend your solution with an unit test.
  *
  *   Implementation
  *
@@ -57,7 +57,7 @@
  *   for each attribute in the heap database. attributeOffset stores the offset for each attribute in the heap database. attributeType stores
  *   the data type for each attribute in the heap database. The look up tables are utilised for quick access in the heap database.
  *   The address size for the nvm memory is 32 bits.
- *
+ *  *
  *   Nvm attribute Database structure
  *
  *   All the elements of the nvm database are defined in the attributeDatabase.c
@@ -67,7 +67,7 @@
  *   Second element : attributeSize   look up table
  *   Third  element : attributeOffset look up table
  *   Forth  element : attributeType   look up table
- *   Fifth  element : attUIntX_inst   attribute’s database
+ *   Fifth  element : attUIntX_inst   attributeï¿½s database
  *
  *   Folders
  *
@@ -94,8 +94,12 @@
  *   |
  *   |______testSetGetAttribute Test gpNvm_setAttribute() gpNvm_getAttribute() functions. 
  *
- *   
- *
+ *   Building Enviroment
+ * 
+ *   You can select one of the choises below:
+ * 
+ *   1)  VS code with GCC toolchain compiling in c89 standard 
+ *   2)  Visual studio 2019 community edition compiling in ms- standard c. 
  */
 
 #include <string.h>
@@ -111,10 +115,19 @@
 
 #include "testSetGetAttribute.h"
 
+
+
 #endif /* ENABLE_UNIT_TEST */
+#ifndef __cplusplus
 
 int main()
-{
+{   
+#ifdef  __STDC_VERSION__   
+    printf (" C version %d  \n", __STDC_VERSION__);
+#endif /* __STDC_VERSION__   */ 
+
     testSetGetAttribute();
     return 0;
 }
+
+#endif /* __cplusplus */

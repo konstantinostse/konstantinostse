@@ -18,7 +18,7 @@ int crcCheck( void* data, void* crc, size_t sz, UInt8_t dataType )
         {
             *crcPtr ^= (*dataPtr);
             dataPtr = dataPtr + 1;
-            //printf("CRC : crc = %d   data = %d \n", crc, *data);
+            /* printf("CRC : crc = %d   data = %d \n", crc, *data); */
         }
 
     }
@@ -31,7 +31,7 @@ int crcCheck( void* data, void* crc, size_t sz, UInt8_t dataType )
         {
             *crcPtr ^= (*dataPtr);
             dataPtr = dataPtr + 1;
-            //printf("CRC : crc = %d   data = %d \n", crc, *data);
+            /* printf("CRC : crc = %d   data = %d \n", crc, *data); */
         }
     }
     else if (uint32PtrType == dataType)
@@ -43,7 +43,7 @@ int crcCheck( void* data, void* crc, size_t sz, UInt8_t dataType )
         {
             *crcPtr ^= (*dataPtr);
             dataPtr = dataPtr + 1;
-            //printf("CRC : crc = %d   data = %d \n", crc, *data);
+            /* printf("CRC : crc = %d   data = %d \n", crc, *data); */
         }
     }
     else

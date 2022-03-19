@@ -4,7 +4,7 @@
  * @brief CRC calculation functions prototypes
  */
 
-#ifndef __CRC_CHECK_H__
+#if !defined(__CRC_CHECK_H__) && !defined(__cplusplus)
 #define __CRC_CHECK_H__
 
 #include <stdint.h>

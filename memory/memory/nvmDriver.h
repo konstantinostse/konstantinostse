@@ -8,7 +8,7 @@
  *
  */
 
-#ifndef __NVM_DRIVER__
+#if !defined(__NVM_DRIVER__) && !defined(__cplusplus)
 #define __NVM_DRIVER__
 
 #include <stdio.h>

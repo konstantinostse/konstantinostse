@@ -53,11 +53,11 @@ bool isDatabaseLoadedInStack = false;
 */
 
 /* Database 's lookup table for attributes size */
-extern UInt32_t        attributeSizeStack[DATABASE_SIZE] = { 0 };
+UInt32_t        attributeSizeStack[DATABASE_SIZE] = { 0 };
 /* Database 's lookup table for attributes byte offset in memory */
-extern UInt8_t        attributeOffsetStack[DATABASE_SIZE] = { 0 };
+UInt8_t        attributeOffsetStack[DATABASE_SIZE] = { 0 };
 /* Database 's lookup table for attributes types */
-extern UInt8_t        attributeTypeStack[DATABASE_SIZE] = { uint8PtrType, uint8PtrType , uint16PtrType , uint32PtrType,uint32PtrType,uint16PtrType };
+UInt8_t        attributeTypeStack[DATABASE_SIZE] = { uint8PtrType, uint8PtrType , uint16PtrType , uint32PtrType,uint32PtrType,uint16PtrType };
 
 /** @brief Copy attributes from stack database to heap database.
 *  @param targetAttribute  Destination Attribute
@@ -187,7 +187,8 @@ int  loadDatabaseInHeapFromStack()
         return -1;
     }
 
-    for (UInt32_t i = 0; i < DATABASE_SIZE; i++)
+    UInt32_t i = 0;
+    for ( i = 0; i < DATABASE_SIZE; i++)
     {
         attUIntX_inst[i] = (attUIntX_t*)malloc(sizeof(attUIntX_t));
         if (attUIntX_inst[i] == NULL)

@@ -4,8 +4,9 @@
  * @brief Types definitions for the Database attributes.
  */
 
-#ifndef __ATTRIBUTES__
+#if !defined(__ATTRIBUTES__) && !defined(__cplusplus)
 #define __ATTRIBUTES__
+
 
 /* Database 's data types according API specifications */
 enum intType

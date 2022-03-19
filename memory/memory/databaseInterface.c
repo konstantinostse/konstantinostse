@@ -8,7 +8,7 @@
 */
 
 /* Disable assert */
-//#define NDEBUG
+/* #define NDEBUG */
 #include <assert.h>
 #include <string.h>
 #include <malloc.h>
@@ -20,7 +20,7 @@
 #include "debugFunctions.h"
 
 /* Enable debug option for the databaseInterface.c.*/
-//#define _ENABLE_DEBUG_
+/* #define _ENABLE_DEBUG_ */
 
 #ifdef _ENABLE_DEBUG_
     #define DEBUG_PRINTF(a,b,c) printData(a,b,c)
@@ -41,7 +41,8 @@ int unloadDatabaseFromHeap()
     /* Is Attribute database loaded in Heap? */
     if ((true == isDatabaseLoadedInHeap) && (databaseSize > 0) )
     {
-        for (UInt32_t i = 0; i < databaseSize; i++)
+        UInt32_t i;
+        for (i = 0; i < databaseSize; i++)
         {
             free(attUIntX_inst[i]->crc);
             attUIntX_inst[i]->crc = NULL;
@@ -108,8 +109,8 @@ int writeDatabaseFromHeapToNvm()
         offset += databaseSize * sizeof(UInt8_t);
         /* Set the global variable for the offset for the first attribute in the database */
         firstAttributeOffset = offset;
-
-        for (UInt32_t i = 0; i < databaseSize; i++)
+        UInt32_t i;
+        for ( i = 0; i < databaseSize; i++)
         {
             if (-1 == writeDatabaseAttribute( attUIntX_inst[i], i) )
             {
@@ -207,8 +208,8 @@ int readDatabaseFromNvmToHeap()
             }
             /* Start loading database in the heap from the nvm*/
             isDatabaseLoadingInProgress = true;
-
-            for (UInt32_t i = 0; i < databaseSize; i++)
+            UInt32_t i;
+            for (i = 0; i < databaseSize; i++)
             {
                 attUIntX_inst[i] = (attUIntX_t*)malloc(sizeof(attUIntX_t));
                 if (attUIntX_inst[i] == NULL)
@@ -261,7 +262,7 @@ int readDatabaseFromNvmToHeap()
         /* Database loading completed.*/
         isDatabaseLoadingInProgress = false;
         /* Attributes Database is loaded in Heap. */
-        isDatabaseLoadedInHeap = true;        
+        isDatabaseLoadedInHeap = true;
         return 0;
     }
     else
@@ -663,7 +664,7 @@ static int readDatabaseAttribute(attUIntX_t* const attribute, UInt8_t attributeN
         assert(offset == attributeSize[attributeNum]);
 
         free(buffer);
-        buffer = 0;
+        buffer = NULL;
 
         /* NVM successfully read */
         return 0;

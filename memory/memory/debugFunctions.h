@@ -4,7 +4,7 @@
  * @brief
  */
 
-#ifndef  __DEBUG_FUNCTIONS__
+#if !defined(__DEBUG_FUNCTIONS__) && !defined(__cplusplus)
 #define __DEBUG_FUNCTIONS__
 
 #include <stdint.h>

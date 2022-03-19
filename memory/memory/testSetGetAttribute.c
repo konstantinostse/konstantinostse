@@ -15,7 +15,7 @@
 #include <stdio.h>
 
 
-//#define LOAD_DATABASE_IN_NVM
+/* #define LOAD_DATABASE_IN_NVM */
 
 /* Define a global array for set and get Attributes from the nvm database */
 UInt8_t  AttributeDataUint8Buffer [ATTRIBUTE_MAXIMUM_DATA_LENGHT] = { 0 };

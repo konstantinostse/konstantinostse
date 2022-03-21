@@ -8,6 +8,10 @@
 #include <string.h>
 #include "attributes.h"
 
+#if defined( __DEBUG_FUNCTIONS__) && defined(OVERLOAD_PRINT_DATA)
+#undef printData
+#endif /* __DEBUG_FUNCTIONS__ */
+
  /* Enable debug option for the debugFunctions.c.*/
 #define _ENABLE_DEBUG_
 
@@ -17,7 +21,8 @@
  *  @param length Size of the array. 
  *  @return void.
  */
-void printData( void* data, UInt8_t length, UInt8_t dataType)
+
+void printData( void* data, UInt8_t length, UInt8_t dataType )
 {   
 #ifdef _ENABLE_DEBUG_
     printf(" data = ");
@@ -61,3 +66,11 @@ void printData( void* data, UInt8_t length, UInt8_t dataType)
     (void)dataType;
 #endif
 }
+
+#ifdef OVERLOAD_PRINT_DATA
+void printDataFileFunctionLine( void* data, UInt8_t length, UInt8_t dataType , const char *fileName , const char *functionName, UInt32_t line )
+{
+    printf("< %s > %s() Line : %d ", fileName,functionName, line);
+    printData( data, length, dataType );
+}
+#endif /* OVERLOAD_PRINT_DATA */

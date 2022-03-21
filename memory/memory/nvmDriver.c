@@ -25,11 +25,15 @@ uint8_t readNvm(void* const buffer, uint32_t nvmAddress, uint32_t byteSize)
     {
         return NVM_BAD_ADDRESS_ERROR;
     }
+#if 1
+    fread(buffer, byteSize, 1, filePtr);
+#else
     size_t elementsRead = fread(buffer, byteSize, 1, filePtr);
-    /*if (elementsRead != 1)    
+    if (elementsRead != 1)
     {
         return NVM_ACCESS_DENIED_ERROR;
-    }*/
+    }
+#endif
     if (0 != fclose(filePtr))
     {
         return NVM_UNKNOWN_PROGRAM_ERROR;

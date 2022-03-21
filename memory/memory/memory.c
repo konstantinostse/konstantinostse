@@ -123,7 +123,7 @@
 int main()
 {   
 #ifdef  __STDC_VERSION__   
-    printf (" C version %d  \n", __STDC_VERSION__);
+    printf (" C version %ld  \n", __STDC_VERSION__);
 #endif /* __STDC_VERSION__   */ 
 
     testSetGetAttribute();

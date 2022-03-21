@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "nvmdriver.h": "c",
-        "testsetgetattribute.h": "c"
+        "testsetgetattribute.h": "c",
+        "debugfunctions.h": "c"
     }
 }
